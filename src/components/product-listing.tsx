@@ -73,7 +73,7 @@ export function ProductListing({
           <Link
             href="/san-pham"
             className={cn(
-              "shrink-0 rounded-full border px-4 py-2 text-[14px] font-medium",
+              "shrink-0 border px-4 py-2 text-[14px] font-medium",
               !categoryId ? "border-sky bg-sky text-white" : "border-border bg-white text-navy",
             )}
           >
@@ -84,7 +84,7 @@ export function ProductListing({
               key={cat.id}
               href={cat.href}
               className={cn(
-                "shrink-0 rounded-full border px-4 py-2 text-[14px] font-medium",
+                "shrink-0 border px-4 py-2 text-[14px] font-medium",
                 cat.id === categoryId ? "border-sky bg-sky text-white" : "border-border bg-white text-navy",
               )}
             >
@@ -94,7 +94,7 @@ export function ProductListing({
         </nav>
         <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
         <aside className="flex flex-col gap-6">
-          <div className="hidden rounded-2xl border border-border bg-white p-5 lg:block">
+          <div className="hidden border border-border bg-white p-5 lg:block">
             <h2 className="mb-4 text-[16px] font-bold text-navy">Danh Mục Sản Phẩm</h2>
             <ul className="flex flex-col gap-1">
               <li>
@@ -129,12 +129,12 @@ export function ProductListing({
             </ul>
           </div>
 
-          <details className="rounded-2xl border border-border bg-white lg:contents">
+          <details className="border border-border bg-white lg:contents">
             <summary className="min-h-11 cursor-pointer list-none px-5 py-3 text-[16px] font-bold text-navy lg:hidden">
               Lọc giá và thương hiệu
             </summary>
             <div className="flex flex-col gap-6 border-t border-border p-5 lg:contents lg:border-0 lg:p-0">
-          <div className="rounded-2xl border border-border bg-white p-5">
+          <div className="border border-border bg-white p-5">
             <h2 className="mb-4 text-[16px] font-bold text-navy">Khoảng Giá</h2>
             <ul className="flex flex-col gap-3">
               {priceRanges.map((range) => (
@@ -151,7 +151,7 @@ export function ProductListing({
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-border bg-white p-5">
+          <div className="border border-border bg-white p-5">
             <h2 className="mb-4 text-[16px] font-bold text-navy">Thương Hiệu</h2>
             <ul className="flex flex-col gap-3">
               {brands.map((brand) => (
@@ -192,7 +192,7 @@ export function ProductListing({
           </div>
 
           {visible.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-[#cbd5e1] bg-white px-6 py-16 text-center">
+            <div className="border border-dashed border-border bg-white px-6 py-16 text-center">
               <p className="font-heading text-[18px] font-bold text-navy">
                 Không tìm thấy sản phẩm phù hợp
               </p>

@@ -59,7 +59,7 @@ export function SiteFooter() {
               <FigmaIcon name="map-pin" size={16} className="mt-0.5 shrink-0 brightness-0 invert" />
               <p>{company.address}</p>
             </div>
-            <div className="relative mt-4 h-[140px] overflow-hidden rounded-xl bg-navy-mid ring-1 ring-white/10">
+            <div className="relative mt-4 h-[140px] overflow-hidden bg-navy-mid ring-1 ring-white/10">
               <iframe
                 title="Bản đồ văn phòng Kim Hưng"
                 src={mapsSrc}
@@ -74,11 +74,16 @@ export function SiteFooter() {
         <div className="mt-12 border-t border-white/10 pt-5">
           <div className="flex flex-col gap-2 text-[13px] text-white/80 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 Công ty TNHH Đầu tư & Phát Triển Kim Hưng. All rights reserved.</p>
-            <p>
+            <p className="flex flex-wrap items-center gap-3">
+              <a href={company.facebook} aria-label="Facebook" target="_blank" rel="noreferrer" className="hover:text-white">
+                <FigmaIcon name="facebook" size={16} className="brightness-0 invert" />
+              </a>
+              <a href={company.youtube} aria-label="YouTube" target="_blank" rel="noreferrer" className="hover:text-white">
+                <FigmaIcon name="youtube" size={16} className="brightness-0 invert" />
+              </a>
               <Link href="/dang-ky" className="hover:text-white">
                 Đăng ký tư vấn
               </Link>
-              {" · "}Thiết kế bởi kimhung.vn
             </p>
           </div>
         </div>

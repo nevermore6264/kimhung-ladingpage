@@ -25,11 +25,11 @@ export default function LienHePage() {
       <section className="bg-white py-16">
         <div className="mx-auto grid max-w-[1440px] gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:px-20">
           <div>
-            <p className="text-[13px] font-bold uppercase text-sky">Liên hệ tư vấn</p>
-            <h1 className="mt-3 font-heading text-[36px] font-extrabold tracking-tight text-navy md:text-[42px]">
-              Liên hệ ngay để được tư vấn miễn phí
+            <p className="text-[13px] font-semibold tracking-[0.14em] text-sky uppercase">Liên hệ</p>
+            <h1 className="mt-3 font-heading text-[32px] leading-[1.05] font-semibold text-navy sm:text-[44px]">
+              Gửi phiếu cho Kim Hưng
             </h1>
-            <p className="mt-4 text-[16px] leading-[1.6] text-[#64748b]">
+            <p className="mt-4 text-[16px] leading-[1.6] text-muted-foreground">
               Đội ngũ chuyên gia của Kim Hưng sẵn sàng hỗ trợ giải đáp mọi thắc mắc
               về danh mục sản phẩm, chính sách giá sỉ và thủ tục đấu thầu.{" "}
               <a href="/dang-ky" className="font-semibold text-sky-dark underline">
@@ -51,7 +51,7 @@ export default function LienHePage() {
                 <span>{company.address}</span>
               </li>
             </ul>
-            <div className="mt-8 h-[240px] overflow-hidden rounded-lg border border-[#e2e8f0]">
+            <div className="mt-8 h-[240px] overflow-hidden border border-border">
               <iframe
                 title="Bản đồ Kim Hưng"
                 src={mapsSrc}
@@ -61,7 +61,7 @@ export default function LienHePage() {
               />
             </div>
           </div>
-          <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-6 sm:p-8">
+          <div className="border border-border bg-ice p-6 sm:p-8">
             <h2 className="mb-6 text-[20px] font-bold text-navy">Gửi yêu cầu</h2>
             <ContactForm />
           </div>

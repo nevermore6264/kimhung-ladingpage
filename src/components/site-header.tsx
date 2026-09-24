@@ -34,36 +34,8 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-white text-navy">
-      <div className="bg-navy text-white">
-        <div className="mx-auto flex h-10 max-w-[1440px] items-center justify-between gap-4 px-5 text-[13px] font-medium sm:px-8 lg:px-20">
-          <div className="flex items-center gap-6">
-            <a href={company.hotlineHref} className="flex items-center gap-2">
-              <FigmaIcon name="phone" size={16} className="brightness-0 invert" />
-              <span className="hidden sm:inline">Hotline: {company.hotline}</span>
-              <span className="sm:hidden">{company.hotline}</span>
-            </a>
-            <a
-              href={company.emailHref}
-              className="hidden items-center gap-2 md:flex"
-            >
-              <FigmaIcon name="mail" size={16} className="brightness-0 invert" />
-              Email: {company.email}
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="hidden text-[13px] lg:inline">{company.legalName}</span>
-            <a href={company.facebook} aria-label="Facebook" target="_blank" rel="noreferrer">
-              <FigmaIcon name="facebook" size={16} className="brightness-0 invert" />
-            </a>
-            <a href={company.youtube} aria-label="YouTube" target="_blank" rel="noreferrer">
-              <FigmaIcon name="youtube" size={16} className="brightness-0 invert" />
-            </a>
-          </div>
-        </div>
-      </div>
-
       <div>
-        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-20">
+        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-20">
           <Logo />
 
           <nav className="hidden items-center gap-8 lg:flex">
@@ -113,6 +85,12 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <a
+              href={company.hotlineHref}
+              className="hidden text-[14px] font-semibold text-navy hover:text-sky md:inline"
+            >
+              {company.hotline}
+            </a>
             <QuoteBadge />
             <Button
               nativeButton={false}
@@ -154,12 +132,12 @@ export function SiteHeader() {
                       {item.label}
                     </Link>
                   ))}
-                  <div className="mt-2 flex flex-col gap-1 border-t border-[#e2e8f0] pt-3">
+                  <div className="mt-2 flex flex-col gap-1 border-t border-border pt-3">
                     {categories.map((cat) => (
                       <Link
                         key={cat.id}
                         href={cat.href}
-                        className="px-2 py-1.5 text-sm text-[#64748b]"
+                        className="px-2 py-1.5 text-sm text-muted-foreground"
                       >
                         {cat.shortName}
                       </Link>

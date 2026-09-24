@@ -15,7 +15,7 @@ export function Logo({
     <Link href="/" className={cn("flex items-center gap-3", className)}>
       <span
         className={cn(
-          "flex size-10 shrink-0 items-center justify-center rounded-lg font-black text-[20px] leading-none",
+          "flex size-10 shrink-0 items-center justify-center font-black text-[20px] leading-none",
           isFooter && "bg-white text-navy",
           isLight && "bg-white text-navy",
           !isFooter && !isLight && "bg-navy text-white",

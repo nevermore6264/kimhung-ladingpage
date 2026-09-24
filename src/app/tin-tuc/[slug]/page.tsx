@@ -70,12 +70,12 @@ export default async function PostPage({
       />
       <article className="bg-white py-16">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
-          <p className="text-[13px] text-[#64748b]">{post.date}</p>
-          <h1 className="mt-3 text-[32px] font-extrabold text-navy">{post.title}</h1>
-          <div className="relative mt-8 h-[280px] overflow-hidden rounded-xl">
+          <p className="text-[13px] font-semibold tracking-[0.14em] text-sky uppercase">{post.date}</p>
+          <h1 className="mt-3 font-heading text-[32px] leading-[1.1] font-semibold text-navy sm:text-[40px]">{post.title}</h1>
+          <div className="relative mt-8 h-[280px] overflow-hidden bg-ice">
             <MediaImage src={post.image} alt={post.title} sizes="800px" />
           </div>
-          <div className="mt-8 space-y-4 text-[16px] leading-[1.7] text-[#64748b]">
+          <div className="mt-8 space-y-4 text-[16px] leading-[1.7] text-muted-foreground">
             <p>{post.excerpt}</p>
             <p>
               Kim Hưng cập nhật thường xuyên các hướng dẫn kỹ thuật, quy định lưu hành

@@ -20,37 +20,29 @@ export default function DichVuPage() {
           { label: "Dịch vụ" },
         ]}
       />
-      <section className="bg-white py-16">
+      <section className="bg-white py-12 lg:py-16">
         <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-20">
-          <p className="text-[13px] font-bold uppercase text-sky">
-            Dịch vụ kỹ thuật chuyên nghiệp
+          <p className="text-[13px] font-semibold tracking-[0.14em] text-sky uppercase">
+            Kỹ thuật đi cùng máy
           </p>
-          <h1 className="mt-3 font-heading text-[36px] font-extrabold tracking-tight text-navy md:text-[42px]">
-            Dịch vụ đo lường & hiệu chuẩn
+          <h1 className="mt-3 max-w-[16ch] font-heading text-[32px] leading-[1.05] font-semibold text-navy sm:text-[44px]">
+            Hiệu chuẩn, sửa chữa, vật tư
           </h1>
-          <p className="mt-4 max-w-3xl text-[16px] leading-[1.6] text-[#64748b]">
-            Kim Hưng không chỉ phân phối thiết bị mà còn đồng hành kỹ thuật dài hạn:
-            hiệu chuẩn định kỳ, sửa chữa linh kiện chính hãng và cung ứng vật tư tiêu hao.
+          <p className="mt-4 max-w-2xl text-[16px] leading-[1.6] text-muted-foreground">
+            Kim Hưng không chỉ giao máy. Đơn vị được hiệu chuẩn định kỳ, thay linh kiện chính hãng và cấp ống thổi, giấy in đúng chủng loại.
           </p>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <ul className="mt-10 border-t border-border">
             {services.map((service) => (
-              <div
-                key={service.title}
-                className="flex h-full flex-col gap-5 rounded-lg border border-border bg-white p-8"
-              >
-                <span className="flex size-12 items-center justify-center rounded-md bg-ice">
-                  <FigmaIcon
-                    name={service.icon as "settings" | "hammer" | "layers"}
-                    size={24}
-                  />
-                </span>
-                <h2 className="text-[20px] font-bold text-navy">{service.title}</h2>
-                <p className="text-[14px] leading-[1.5] text-[#64748b]">
-                  {service.description}
-                </p>
-              </div>
+              <li key={service.title} className="grid gap-4 border-b border-border py-6 sm:grid-cols-[3rem_16rem_1fr] sm:items-start">
+                <FigmaIcon
+                  name={service.icon as "settings" | "hammer" | "layers"}
+                  size={24}
+                />
+                <h2 className="font-heading text-[20px] font-semibold text-navy">{service.title}</h2>
+                <p className="text-[15px] leading-[1.6] text-muted-foreground">{service.description}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
       <CtaBanner />

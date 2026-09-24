@@ -35,7 +35,7 @@ export function ProductGallery({ product }: { product: Product }) {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="studio-surface flex h-[320px] w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-2xl sm:h-[420px]"
+          className="studio-surface flex h-[320px] w-full cursor-zoom-in items-center justify-center overflow-hidden sm:h-[420px]"
         >
           <span className="relative block size-[240px] overflow-hidden sm:size-[320px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -55,10 +55,10 @@ export function ProductGallery({ product }: { product: Product }) {
               type="button"
               onClick={() => setActive(index)}
               className={cn(
-                "studio-surface flex h-20 items-center justify-center overflow-hidden rounded-xl border transition-all",
+                "studio-surface flex h-20 items-center justify-center overflow-hidden border",
                 active === index
                   ? "border-sky ring-2 ring-sky/30"
-                  : "border-[#e2e8f0] hover:border-sky/40",
+                  : "border-border hover:border-sky/40",
               )}
             >
               <span className="relative block size-[60px] overflow-hidden">
@@ -111,7 +111,7 @@ export function ProductBuyBox({ product }: { product: Product }) {
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
         <span className="text-[14px] text-navy">Số lượng</span>
-        <div className="flex overflow-hidden rounded-md border border-[#e2e8f0]">
+        <div className="flex overflow-hidden rounded-md border border-border">
           <button
             type="button"
             className="h-11 w-11 text-navy"
@@ -119,7 +119,7 @@ export function ProductBuyBox({ product }: { product: Product }) {
           >
             -
           </button>
-          <span className="flex h-11 w-12 items-center justify-center border-x border-[#e2e8f0] text-[14px] font-medium">
+          <span className="flex h-11 w-12 items-center justify-center border-x border-border text-[14px] font-medium">
             {qty}
           </span>
           <button
@@ -172,7 +172,7 @@ export function StickyQuoteBar({ product }: { product: Product }) {
   const { add } = useQuote();
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#e2e8f0] bg-white/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden">
       <button
         type="button"
         onClick={() => {

@@ -14,7 +14,7 @@ export function ProductCard({
   const href = `/san-pham/${product.slug}`;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-[0_4px_6px_-4px_rgba(22,78,99,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+    <article className="group flex h-full flex-col overflow-hidden border border-border bg-white">
       <Link
         href={href}
         className="studio-surface flex h-[220px] items-center justify-center overflow-hidden"
@@ -24,7 +24,7 @@ export function ProductCard({
             src={product.image}
             alt={product.name}
             sizes="(max-width: 640px) 80vw, 280px"
-            className="transition-transform duration-500 group-hover:scale-110"
+            className="object-contain"
           />
         </span>
       </Link>
@@ -41,14 +41,14 @@ export function ProductCard({
         </div>
         <div className="mt-auto flex items-center justify-between">
           <span className="text-[15px] font-bold text-sky-dark">Liên hệ báo giá</span>
-          <span className="rounded-full bg-ice px-2.5 py-1 text-[12px] font-semibold text-sky-dark">
+          <span className="bg-ice px-2 py-1 text-[12px] font-semibold text-sky">
             Chính hãng
           </span>
         </div>
         <div className={cn("flex items-stretch gap-2")}>
           <Link
             href={href}
-            className="btn flex min-h-11 flex-1 items-center justify-center rounded-lg bg-secondary py-2.5 text-[13px] font-semibold text-navy hover:bg-navy hover:text-white"
+            className="btn flex min-h-11 flex-1 items-center justify-center bg-secondary py-2.5 text-[13px] font-semibold text-navy hover:bg-navy hover:text-white"
           >
             Xem chi tiết
           </Link>

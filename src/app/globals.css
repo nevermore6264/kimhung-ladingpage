@@ -9,12 +9,12 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-noto), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-inclusive), var(--font-noto), ui-sans-serif, system-ui, sans-serif;
-  --color-navy: #1c1917;
-  --color-navy-mid: #3f3834;
-  --color-sky: #8e1b2c;
-  --color-sky-dark: #6e1422;
-  --color-ice: #e7e1d6;
-  --color-cta: #8e1b2c;
+  --color-navy: #111111;
+  --color-navy-mid: #2a2a2a;
+  --color-sky: #9a3412;
+  --color-sky-dark: #7c2d12;
+  --color-ice: #f2f2f2;
+  --color-cta: #9a3412;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -54,30 +54,30 @@
 }
 
 :root {
-  --background: #f6f1e8;
-  --foreground: #1c1917;
-  --card: #fffdf8;
-  --card-foreground: #1c1917;
-  --popover: #fffdf8;
-  --popover-foreground: #1c1917;
-  --primary: #8e1b2c;
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #9a3412;
   --primary-foreground: #ffffff;
-  --secondary: #e7e1d6;
-  --secondary-foreground: #1c1917;
-  --muted: #e7e1d6;
-  --muted-foreground: #5c564e;
-  --accent: #f3ebe3;
-  --accent-foreground: #8e1b2c;
-  --destructive: #8e1b2c;
-  --border: #ddd4c6;
-  --input: #ddd4c6;
-  --ring: #8e1b2c;
+  --secondary: #f2f2f2;
+  --secondary-foreground: #111111;
+  --muted: #f2f2f2;
+  --muted-foreground: #5a5a5a;
+  --accent: #f2f2f2;
+  --accent-foreground: #9a3412;
+  --destructive: #9a3412;
+  --border: #e4e4e4;
+  --input: #e4e4e4;
+  --ring: #9a3412;
   --chart-1: #1e5a86;
   --chart-2: #12263a;
   --chart-3: #5a6a7a;
   --chart-4: #8aa0b5;
   --chart-5: #e3e8ee;
-  --radius: 0.5rem;
+  --radius: 0rem;
   --sidebar: #f3f6f8;
   --sidebar-foreground: #1a2332;
   --sidebar-primary: #1e5a86;
@@ -114,7 +114,7 @@
     cursor: pointer;
   }
   :focus-visible {
-    outline: 2px solid #8e1b2c;
+    outline: 2px solid #9a3412;
     outline-offset: 2px;
   }
 }
@@ -133,7 +133,7 @@
 }
 
 .studio-surface {
-  background: #efe8dc;
+  background: #f2f2f2;
 }
 
 .desk-mark {
@@ -213,7 +213,7 @@
   height: 2px;
   width: 100%;
   transform-origin: left center;
-  background: #8e1b2c;
+  background: #9a3412;
   animation: route-load 1.1s ease-out forwards;
 }
 

@@ -20,44 +20,28 @@ export default function TinTucPage() {
           { label: "Tin tức" },
         ]}
       />
-      <section className="bg-white py-16">
+      <section className="bg-white py-12 lg:py-16">
         <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-20">
-          <p className="text-[13px] font-bold uppercase text-sky">Tin tức & Sự kiện</p>
-          <h1 className="mt-3 font-heading text-[36px] font-extrabold tracking-tight text-navy md:text-[42px]">
-            Cập nhật tin tức mới nhất
+          <p className="text-[13px] font-semibold tracking-[0.14em] text-sky uppercase">Ghi chép kỹ thuật</p>
+          <h1 className="mt-3 font-heading text-[32px] leading-[1.05] font-semibold text-navy sm:text-[44px]">
+            Tin cho người đang dùng máy
           </h1>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <ul className="mt-10 border-t border-border">
             {posts.map((post) => (
-              <article
-                key={post.slug}
-                className="group overflow-hidden rounded-2xl border border-[#e2e8f0] transition-all hover:-translate-y-1 hover:shadow-lg"
-              >
-                <Link href={`/tin-tuc/${post.slug}`} className="relative block h-[180px] overflow-hidden">
-                  <MediaImage
-                    src={post.image}
-                    alt={post.title}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="transition-transform duration-500 group-hover:scale-105"
-                  />
+              <li key={post.slug} className="border-b border-border">
+                <Link href={`/tin-tuc/${post.slug}`} className="grid gap-4 py-5 sm:grid-cols-[8rem_11rem_1fr] sm:items-center">
+                  <span className="text-[13px] text-muted-foreground">{post.date}</span>
+                  <span className="relative block h-24 overflow-hidden bg-ice">
+                    <MediaImage src={post.image} alt="" sizes="180px" className="object-cover" />
+                  </span>
+                  <span>
+                    <span className="block font-heading text-[20px] font-semibold text-navy">{post.title}</span>
+                    <span className="mt-1 block text-[14px] leading-[1.5] text-muted-foreground">{post.excerpt}</span>
+                  </span>
                 </Link>
-                <div className="p-5">
-                  <p className="text-[12px] text-[#64748b]">{post.date}</p>
-                  <h2 className="mt-2 text-[16px] font-bold text-navy">
-                    <Link href={`/tin-tuc/${post.slug}`}>{post.title}</Link>
-                  </h2>
-                  <p className="mt-2 text-[13px] leading-[1.4] text-[#64748b]">
-                    {post.excerpt}
-                  </p>
-                  <Link
-                    href={`/tin-tuc/${post.slug}`}
-                    className="mt-4 inline-block text-[13px] font-semibold text-sky-dark"
-                  >
-                    Đọc tiếp →
-                  </Link>
-                </div>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
     </>

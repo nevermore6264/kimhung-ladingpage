@@ -22,7 +22,7 @@ const noto = Noto_Sans({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1c1917",
+  themeColor: "#111111",
 };
 
 export const metadata: Metadata = {

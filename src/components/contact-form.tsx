@@ -53,28 +53,28 @@ export function ContactForm() {
       }}
     >
       {items.length > 0 ? (
-        <div className="rounded-xl border border-[#dbeafe] bg-white p-4">
+        <div className="border border-border bg-white p-4">
           <p className="text-[13px] font-bold text-navy">
             Sản phẩm trong yêu cầu báo giá ({count})
           </p>
           <ul className="mt-3 flex flex-col gap-3">
             {items.map((item) => (
               <li key={item.slug} className="flex items-center gap-3">
-                <span className="relative size-12 shrink-0 overflow-hidden rounded-md bg-[#f8fafc]">
+                <span className="relative size-12 shrink-0 overflow-hidden bg-ice">
                   <MediaImage src={item.image} alt={item.name} sizes="48px" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-[13px] font-semibold text-navy">
                     {item.name}
                   </span>
-                  <span className="text-[12px] text-[#64748b]">
+                  <span className="text-[12px] text-muted-foreground">
                     {item.sku} · SL {item.qty}
                   </span>
                 </span>
                 <button
                   type="button"
                   onClick={() => remove(item.slug)}
-                  className="text-[12px] font-semibold text-[#64748b] hover:text-navy"
+                  className="text-[12px] font-semibold text-muted-foreground hover:text-navy"
                 >
                   Xóa
                 </button>

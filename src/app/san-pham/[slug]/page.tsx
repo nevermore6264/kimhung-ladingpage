@@ -88,25 +88,25 @@ export default async function ProductDetailPage({
             <h1 className="font-heading text-[24px] font-extrabold tracking-tight text-navy sm:text-[26px] md:text-[32px]">
               {product.name}
             </h1>
-            <div className="mt-2 flex flex-wrap items-center gap-3 text-[13px] text-[#64748b]">
+            <div className="mt-2 flex flex-wrap items-center gap-3 text-[13px] text-muted-foreground">
               <span className="inline-flex items-center gap-1">
                 <FigmaIcon name="star" size={14} />
                 {product.rating}/5 ({product.reviewCount} đánh giá)
               </span>
-              <span className="hidden h-4 w-px bg-[#e2e8f0] sm:block" />
+              <span className="hidden h-4 w-px bg-border sm:block" />
               <span>Mã sản phẩm: {product.sku}</span>
             </div>
 
-            <div className="mt-6 border-t border-[#e2e8f0] pt-6">
+            <div className="mt-6 border-t border-border pt-6">
               <p className="text-[22px] font-extrabold text-sky-dark">
                 Liên hệ báo giá sỉ
               </p>
-              <p className="mt-1 text-[12px] text-[#64748b]">
+              <p className="mt-1 text-[12px] text-muted-foreground">
                 Cam kết chiết khấu thương mại tốt nhất cho các đại lý & đơn vị thầu y tế.
               </p>
             </div>
 
-            <p className="mt-5 text-[15px] leading-[1.5] text-[#64748b]">
+            <p className="mt-5 text-[15px] leading-[1.5] text-muted-foreground">
               {product.description}
             </p>
 
@@ -114,7 +114,7 @@ export default async function ProductDetailPage({
               <ProductBuyBox product={product} />
             </div>
 
-            <div className="mt-6 border-t border-[#e2e8f0] pt-4 text-[13px] text-[#64748b]">
+            <div className="mt-6 border-t border-border pt-4 text-[13px] text-muted-foreground">
               <p>Phân mục: {product.categoryLabel}</p>
               <p className="mt-1">
                 Chứng chỉ kiểm định: {product.certifications}
@@ -127,7 +127,7 @@ export default async function ProductDetailPage({
           <Tabs defaultValue="mo-ta">
             <TabsList
               variant="line"
-              className="h-12 w-full justify-start overflow-x-auto rounded-none border-b border-[#e2e8f0] p-0"
+              className="h-12 w-full justify-start overflow-x-auto rounded-none border-b border-border p-0"
             >
               <TabsTrigger
                 value="mo-ta"
@@ -150,24 +150,24 @@ export default async function ProductDetailPage({
               <h2 className="text-[18px] font-bold text-navy">
                 Mô Tả Sản Phẩm {product.shortName}
               </h2>
-              <p className="mt-4 max-w-none text-[14px] leading-[1.6] text-[#64748b]">
+              <p className="mt-4 max-w-none text-[14px] leading-[1.6] text-muted-foreground">
                 {product.slug === "que-thu-nhanh-5-chat-doa"
                   ? "Cốc test 5 chất ma túy DOA là giải pháp chẩn đoán chuyên dụng dạng hộp cốc chứa kín mẫu nước tiểu của bệnh nhân hoặc người lao động cần kiểm chứng. Thiết kế cốc tự động chống tràn giúp bảo vệ nhân viên kiểm duyệt tối đa khỏi lây nhiễm chéo hoặc can thiệp ngoại vi vào mẫu phẩm."
                   : product.description}
               </p>
               {product.slug === "que-thu-nhanh-5-chat-doa" ? (
-                <p className="mt-4 text-[14px] leading-[1.6] text-[#64748b]">
+                <p className="mt-4 text-[14px] leading-[1.6] text-muted-foreground">
                   Sản phẩm sử dụng công nghệ miễn dịch sắc ký dòng chảy bên để phát
                   hiện định tính định mức giới hạn của các chất kích thích có trong
                   mẫu sinh hóa. Có kết quả rõ ràng sắc nét thể hiện qua các vạch màu
                   đỏ chuẩn (Vạch C và Vạch T) trên thân cốc kiểm.
                 </p>
               ) : null}
-              <div className="mt-6 rounded-lg bg-[#f8fafc] p-5">
+              <div className="mt-6 border border-border bg-ice p-5">
                 <p className="text-[15px] font-bold text-navy">
                   Ưu Điểm Vượt Trội Của {product.name} Kim Hưng Phân Phối:
                 </p>
-                <ul className="mt-3 flex flex-col gap-2 text-[14px] text-[#64748b]">
+                <ul className="mt-3 flex flex-col gap-2 text-[14px] text-muted-foreground">
                   {product.benefits.map((item) => (
                     <li key={item}>• {item}</li>
                   ))}
@@ -179,11 +179,11 @@ export default async function ProductDetailPage({
               <table className="w-full max-w-3xl text-sm">
                 <tbody>
                   {product.specs.map((spec) => (
-                    <tr key={spec.label} className="border-b border-[#e2e8f0]">
+                    <tr key={spec.label} className="border-b border-border">
                       <th className="w-1/3 py-3 text-left font-semibold text-navy">
                         {spec.label}
                       </th>
-                      <td className="py-3 text-[#64748b]">{spec.value}</td>
+                      <td className="py-3 text-muted-foreground">{spec.value}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -191,7 +191,7 @@ export default async function ProductDetailPage({
             </TabsContent>
 
             <TabsContent value="huong-dan" className="pt-6">
-              <ol className="flex max-w-3xl list-decimal flex-col gap-2 pl-5 text-[14px] leading-[1.6] text-[#64748b]">
+              <ol className="flex max-w-3xl list-decimal flex-col gap-2 pl-5 text-[14px] leading-[1.6] text-muted-foreground">
                 {product.usage.map((step) => (
                   <li key={step}>{step}</li>
                 ))}
@@ -199,7 +199,7 @@ export default async function ProductDetailPage({
             </TabsContent>
 
             <TabsContent value="phap-ly" className="pt-6">
-              <p className="max-w-3xl text-[14px] leading-[1.6] text-[#64748b]">
+              <p className="max-w-3xl text-[14px] leading-[1.6] text-muted-foreground">
                 {product.legal}
               </p>
             </TabsContent>
