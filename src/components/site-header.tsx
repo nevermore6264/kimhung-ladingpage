@@ -33,7 +33,7 @@ export function SiteHeader() {
   const productsActive = pathname.startsWith("/san-pham");
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-white text-navy">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-white/80 text-navy backdrop-blur-md">
       <div>
         <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-20">
           <Logo />

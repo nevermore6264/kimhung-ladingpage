@@ -1,3 +1,5 @@
+import { BootScreen } from "@/components/boot-screen";
+import { PageMotion } from "@/components/page-motion";
 import { RouteProgress } from "@/components/route-progress";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -5,6 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <BootScreen />
       <RouteProgress />
       <a
         href="#main-content"
@@ -14,7 +17,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </a>
       <SiteHeader />
       <main id="main-content" className="flex-1">
-        {children}
+        <PageMotion>{children}</PageMotion>
       </main>
       <SiteFooter />
     </>

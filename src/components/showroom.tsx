@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { AddToQuoteButton } from "@/components/add-to-quote-button";
 import { MediaImage } from "@/components/media-image";
+import { StageTilt } from "@/components/stage-tilt";
 import { products } from "@/lib/data";
 
 export function Showroom() {
@@ -28,23 +29,31 @@ export function Showroom() {
   }, [total]);
 
   return (
-    <section className="bg-white" aria-roledescription="băng chuyền">
+    <section className="bg-[#0c121c] text-white" aria-roledescription="băng chuyền">
       <div className="grid lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-2">
-        <div className="relative min-h-[260px] bg-ice sm:min-h-[360px]">
-          <div key={product.slug} className="desk-swap absolute inset-0">
-            <MediaImage
-              src={product.image}
-              alt={product.name}
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain p-8 sm:p-16"
-              priority
-            />
-          </div>
+        <div className="stage relative min-h-[300px] overflow-hidden sm:min-h-[420px]">
+          <div className="stage-grid pointer-events-none absolute inset-x-[-10%] bottom-0 h-[55%]" />
+          <StageTilt>
+            <div key={product.slug} className="desk-swap absolute inset-0">
+              <div className="float-y absolute inset-8 sm:inset-16">
+                <span className="stage-glow pointer-events-none absolute inset-[12%] -z-10" />
+                <div className="relative size-full">
+                  <MediaImage
+                    src={product.image}
+                    alt={product.name}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-contain drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </StageTilt>
           <button
             type="button"
             onClick={() => step(-1)}
             aria-label="Thiết bị trước"
-            className="absolute top-1/2 left-3 flex size-11 -translate-y-1/2 items-center justify-center bg-navy text-white hover:bg-sky"
+            className="absolute top-1/2 left-3 z-10 flex size-11 -translate-y-1/2 items-center justify-center bg-white text-navy hover:bg-sky hover:text-white"
           >
             <ChevronLeftIcon className="size-5" />
           </button>
@@ -52,13 +61,13 @@ export function Showroom() {
             type="button"
             onClick={() => step(1)}
             aria-label="Thiết bị sau"
-            className="absolute top-1/2 right-3 flex size-11 -translate-y-1/2 items-center justify-center bg-navy text-white hover:bg-sky"
+            className="absolute top-1/2 right-3 z-10 flex size-11 -translate-y-1/2 items-center justify-center bg-white text-navy hover:bg-sky hover:text-white"
           >
             <ChevronRightIcon className="size-5" />
           </button>
         </div>
 
-        <div className="flex flex-col justify-between gap-8 px-5 py-8 sm:px-8 lg:px-14 lg:py-12">
+        <div className="flex flex-col justify-between gap-8 bg-white px-5 py-8 text-navy sm:px-8 lg:px-14 lg:py-12">
           <div key={`${product.slug}-copy`} className="desk-swap">
             <p className="sr-only" aria-live="polite">
               {product.name}
@@ -92,7 +101,7 @@ export function Showroom() {
         </div>
       </div>
 
-      <div className="flex gap-px overflow-x-auto border-t border-border bg-border" aria-label="Dãy thiết bị">
+      <div className="flex gap-2 overflow-x-auto bg-[#0c121c] px-3 py-3" aria-label="Dãy thiết bị">
         {products.map((item, itemIndex) => {
           const active = itemIndex === index;
           return (
@@ -102,8 +111,10 @@ export function Showroom() {
               onClick={() => setIndex(itemIndex)}
               aria-current={active ? "true" : undefined}
               aria-label={item.shortName}
-              className={`btn flex w-28 shrink-0 flex-col bg-white text-left sm:w-36 ${
-                active ? "bg-ice" : "hover:bg-ice"
+              className={`btn flex w-28 shrink-0 flex-col border text-left transition-transform duration-200 sm:w-36 ${
+                active
+                  ? "scale-[1.04] border-sky bg-white"
+                  : "border-transparent bg-white/90 hover:bg-white"
               }`}
             >
               <span className={`block h-1 ${active ? "bg-sky" : "bg-transparent"}`} />

@@ -14,7 +14,7 @@ export function ProductCard({
   const href = `/san-pham/${product.slug}`;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden border border-border bg-white">
+    <article className="card-3d group flex h-full flex-col overflow-hidden border border-border bg-white">
       <Link
         href={href}
         className="studio-surface flex h-[220px] items-center justify-center overflow-hidden"

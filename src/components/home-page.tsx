@@ -26,7 +26,7 @@ export function HomePage() {
             <Link
               key={category.id}
               href={category.href}
-              className="border-t border-border px-5 py-6 hover:bg-ice sm:px-8 lg:border-t-0 lg:border-l lg:first:border-l-0"
+              className="border-t border-border px-5 py-6 transition-colors duration-200 hover:-translate-y-1 hover:bg-ice sm:px-8 lg:border-t-0 lg:border-l lg:first:border-l-0"
             >
               <span className="text-[13px] font-semibold tracking-[0.12em] text-sky uppercase">Danh mục</span>
               <span className="mt-2 block font-heading text-[22px] font-semibold text-navy">{category.name}</span>

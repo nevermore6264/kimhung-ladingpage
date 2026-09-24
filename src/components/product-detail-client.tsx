@@ -35,9 +35,9 @@ export function ProductGallery({ product }: { product: Product }) {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="studio-surface flex h-[320px] w-full cursor-zoom-in items-center justify-center overflow-hidden sm:h-[420px]"
+          className="stage relative flex h-[320px] w-full cursor-zoom-in items-center justify-center overflow-hidden sm:h-[420px]"
         >
-          <span className="relative block size-[240px] overflow-hidden sm:size-[320px]">
+          <span className="float-y relative block size-[240px] overflow-hidden sm:size-[320px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={images[active]}
