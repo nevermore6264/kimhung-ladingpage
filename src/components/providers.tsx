@@ -4,6 +4,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
 import viVN from "antd/locale/vi_VN";
 import { QuoteProvider } from "@/components/quote-provider";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -19,7 +20,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
           },
         }}
       >
-        <QuoteProvider>{children}</QuoteProvider>
+        <QuoteProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </QuoteProvider>
       </ConfigProvider>
     </AntdRegistry>
   );

@@ -8,7 +8,7 @@ import {
   StickyQuoteBar,
 } from "@/components/product-detail-client";
 import { ProductCard } from "@/components/product-card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs } from "antd";
 import { JsonLd } from "@/components/json-ld";
 import {
   getCategory,
@@ -124,86 +124,70 @@ export default async function ProductDetailPage({
         </div>
 
         <div className="mx-auto max-w-[1440px] px-5 py-8 sm:px-8 lg:px-20">
-          <Tabs defaultValue="mo-ta">
-            <TabsList
-              variant="line"
-              className="h-12 w-full justify-start overflow-x-auto rounded-none border-b border-border p-0"
-            >
-              <TabsTrigger
-                value="mo-ta"
-                className="h-12 shrink-0 rounded-none px-4 whitespace-nowrap data-active:text-sky-dark sm:px-6"
-              >
-                Mô tả sản phẩm
-              </TabsTrigger>
-              <TabsTrigger value="thong-so" className="h-12 shrink-0 rounded-none px-4 whitespace-nowrap sm:px-6">
-                Thông số kỹ thuật
-              </TabsTrigger>
-              <TabsTrigger value="huong-dan" className="h-12 shrink-0 rounded-none px-4 whitespace-nowrap sm:px-6">
-                Hướng dẫn sử dụng
-              </TabsTrigger>
-              <TabsTrigger value="phap-ly" className="h-12 shrink-0 rounded-none px-4 whitespace-nowrap sm:px-6">
-                Đánh giá & Pháp lý
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="mo-ta" className="pt-6">
-              <h2 className="text-[18px] font-bold text-navy">
-                Mô Tả Sản Phẩm {product.shortName}
-              </h2>
-              <p className="mt-4 max-w-none text-[14px] leading-[1.6] text-muted-foreground">
-                {product.slug === "que-thu-nhanh-5-chat-doa"
-                  ? "Cốc test 5 chất ma túy DOA là giải pháp chẩn đoán chuyên dụng dạng hộp cốc chứa kín mẫu nước tiểu của bệnh nhân hoặc người lao động cần kiểm chứng. Thiết kế cốc tự động chống tràn giúp bảo vệ nhân viên kiểm duyệt tối đa khỏi lây nhiễm chéo hoặc can thiệp ngoại vi vào mẫu phẩm."
-                  : product.description}
-              </p>
-              {product.slug === "que-thu-nhanh-5-chat-doa" ? (
-                <p className="mt-4 text-[14px] leading-[1.6] text-muted-foreground">
-                  Sản phẩm sử dụng công nghệ miễn dịch sắc ký dòng chảy bên để phát
-                  hiện định tính định mức giới hạn của các chất kích thích có trong
-                  mẫu sinh hóa. Có kết quả rõ ràng sắc nét thể hiện qua các vạch màu
-                  đỏ chuẩn (Vạch C và Vạch T) trên thân cốc kiểm.
-                </p>
-              ) : null}
-              <div className="mt-6 border border-border bg-ice p-5">
-                <p className="text-[15px] font-bold text-navy">
-                  Ưu Điểm Vượt Trội Của {product.name} Kim Hưng Phân Phối:
-                </p>
-                <ul className="mt-3 flex flex-col gap-2 text-[14px] text-muted-foreground">
-                  {product.benefits.map((item) => (
-                    <li key={item}>• {item}</li>
-                  ))}
-                </ul>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="thong-so" className="pt-6">
-              <table className="w-full max-w-3xl text-sm">
-                <tbody>
-                  {product.specs.map((spec) => (
-                    <tr key={spec.label} className="border-b border-border">
-                      <th className="w-1/3 py-3 text-left font-semibold text-navy">
-                        {spec.label}
-                      </th>
-                      <td className="py-3 text-muted-foreground">{spec.value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </TabsContent>
-
-            <TabsContent value="huong-dan" className="pt-6">
-              <ol className="flex max-w-3xl list-decimal flex-col gap-2 pl-5 text-[14px] leading-[1.6] text-muted-foreground">
-                {product.usage.map((step) => (
-                  <li key={step}>{step}</li>
-                ))}
-              </ol>
-            </TabsContent>
-
-            <TabsContent value="phap-ly" className="pt-6">
-              <p className="max-w-3xl text-[14px] leading-[1.6] text-muted-foreground">
-                {product.legal}
-              </p>
-            </TabsContent>
-          </Tabs>
+          <Tabs
+            defaultActiveKey="mo-ta"
+            items={[
+              {
+                key: "mo-ta",
+                label: "Mô tả sản phẩm",
+                children: (
+                  <div className="pt-2">
+                    <h2 className="text-[18px] font-bold text-navy">Mô Tả Sản Phẩm {product.shortName}</h2>
+                    <p className="mt-4 max-w-none text-[14px] leading-[1.6] text-muted-foreground">
+                      {product.slug === "que-thu-nhanh-5-chat-doa"
+                        ? "Cốc test 5 chất ma túy DOA là giải pháp chẩn đoán chuyên dụng dạng hộp cốc chứa kín mẫu nước tiểu của bệnh nhân hoặc người lao động cần kiểm chứng. Thiết kế cốc tự động chống tràn giúp bảo vệ nhân viên kiểm duyệt tối đa khỏi lây nhiễm chéo hoặc can thiệp ngoại vi vào mẫu phẩm."
+                        : product.description}
+                    </p>
+                    {product.slug === "que-thu-nhanh-5-chat-doa" ? (
+                      <p className="mt-4 text-[14px] leading-[1.6] text-muted-foreground">
+                        Sản phẩm sử dụng công nghệ miễn dịch sắc ký dòng chảy bên để phát hiện định tính định mức giới hạn của các chất kích thích có trong mẫu sinh hóa. Có kết quả rõ ràng sắc nét thể hiện qua các vạch màu đỏ chuẩn (Vạch C và Vạch T) trên thân cốc kiểm.
+                      </p>
+                    ) : null}
+                    <div className="mt-6 border border-border bg-ice p-5">
+                      <p className="text-[15px] font-bold text-navy">Ưu Điểm Vượt Trội Của {product.name} Kim Hưng Phân Phối:</p>
+                      <ul className="mt-3 flex flex-col gap-2 text-[14px] text-muted-foreground">
+                        {product.benefits.map((item) => (
+                          <li key={item}>• {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ),
+              },
+              {
+                key: "thong-so",
+                label: "Thông số kỹ thuật",
+                children: (
+                  <table className="w-full max-w-3xl text-sm">
+                    <tbody>
+                      {product.specs.map((spec) => (
+                        <tr key={spec.label} className="border-b border-border">
+                          <th className="w-1/3 py-3 text-left font-semibold text-navy">{spec.label}</th>
+                          <td className="py-3 text-muted-foreground">{spec.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ),
+              },
+              {
+                key: "huong-dan",
+                label: "Hướng dẫn sử dụng",
+                children: (
+                  <ol className="flex max-w-3xl list-decimal flex-col gap-2 pl-5 text-[14px] leading-[1.6] text-muted-foreground">
+                    {product.usage.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
+                  </ol>
+                ),
+              },
+              {
+                key: "phap-ly",
+                label: "Đánh giá & Pháp lý",
+                children: <p className="max-w-3xl text-[14px] leading-[1.6] text-muted-foreground">{product.legal}</p>,
+              },
+            ]}
+          />
         </div>
 
         <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-20">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { FigmaIcon } from "@/components/figma-icon";
 import { ProductCard } from "@/components/product-card";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button, Checkbox, Pagination } from "antd";
 import {
   brands,
   categories,
@@ -138,14 +138,13 @@ export function ProductListing({
             <h2 className="mb-4 text-[16px] font-bold text-navy">Khoảng Giá</h2>
             <ul className="flex flex-col gap-3">
               {priceRanges.map((range) => (
-                <li key={range.id} className="flex items-center gap-2">
+                <li key={range.id}>
                   <Checkbox
                     checked={selectedPrices.includes(range.id)}
-                    onCheckedChange={() =>
-                      toggle(selectedPrices, range.id, setSelectedPrices)
-                    }
-                  />
-                  <span className="text-[13px] text-navy">{range.label}</span>
+                    onChange={() => toggle(selectedPrices, range.id, setSelectedPrices)}
+                  >
+                    {range.label}
+                  </Checkbox>
                 </li>
               ))}
             </ul>
@@ -155,14 +154,13 @@ export function ProductListing({
             <h2 className="mb-4 text-[16px] font-bold text-navy">Thương Hiệu</h2>
             <ul className="flex flex-col gap-3">
               {brands.map((brand) => (
-                <li key={brand} className="flex items-center gap-2">
+                <li key={brand}>
                   <Checkbox
                     checked={selectedBrands.includes(brand)}
-                    onCheckedChange={() =>
-                      toggle(selectedBrands, brand, setSelectedBrands)
-                    }
-                  />
-                  <span className="text-[13px] text-navy">{brand}</span>
+                    onChange={() => toggle(selectedBrands, brand, setSelectedBrands)}
+                  >
+                    {brand}
+                  </Checkbox>
                 </li>
               ))}
             </ul>
@@ -178,16 +176,9 @@ export function ProductListing({
               {hasFilters ? " khớp bộ lọc" : ""}
             </p>
             {hasFilters ? (
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedPrices([]);
-                  setSelectedBrands([]);
-                }}
-                className="text-[13px] font-semibold text-sky-dark hover:underline"
-              >
+              <Button type="link" onClick={() => { setSelectedPrices([]); setSelectedBrands([]); }}>
                 Xóa bộ lọc
-              </button>
+              </Button>
             ) : null}
           </div>
 
@@ -199,16 +190,16 @@ export function ProductListing({
               <p className="mt-2 text-[14px] text-muted-foreground">
                 Thử bỏ bớt khoảng giá hoặc thương hiệu, hoặc xem toàn bộ danh mục.
               </p>
-              <button
-                type="button"
+              <Button
+                type="primary"
+                className="mt-5"
                 onClick={() => {
                   setSelectedPrices([]);
                   setSelectedBrands([]);
                 }}
-                className="mt-5 rounded-md bg-sky px-5 py-2.5 text-[13px] font-medium text-white hover:bg-sky-dark"
               >
                 Xóa bộ lọc
-              </button>
+              </Button>
             </div>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -219,38 +210,14 @@ export function ProductListing({
           )}
 
           {products.length > perPage ? (
-            <div className="mt-8 flex items-center justify-center gap-2">
-              <button
-                type="button"
-                disabled={currentPage === 1}
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="min-h-11 rounded border border-border px-4 text-[13px] text-navy disabled:opacity-40"
-              >
-                Trước
-              </button>
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setPage(i + 1)}
-                  className={cn(
-                    "flex size-11 items-center justify-center rounded text-[13px] font-semibold",
-                    currentPage === i + 1
-                      ? "bg-sky text-white"
-                      : "border border-border text-navy",
-                  )}
-                >
-                  {i + 1}
-                </button>
-              ))}
-              <button
-                type="button"
-                disabled={currentPage === totalPages}
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                className="min-h-11 rounded border border-border px-4 text-[13px] text-navy disabled:opacity-40"
-              >
-                Sau
-              </button>
+            <div className="mt-8 flex justify-center">
+              <Pagination
+                current={currentPage}
+                total={products.length}
+                pageSize={perPage}
+                showSizeChanger={false}
+                onChange={(page) => setPage(page)}
+              />
             </div>
           ) : null}
           <p className="mt-3 text-center text-xs text-muted-foreground">

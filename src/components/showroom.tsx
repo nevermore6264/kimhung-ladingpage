@@ -1,15 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import type { Swiper as SwiperType } from "swiper";
+import { FreeMode, Mousewheel } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { AddToQuoteButton } from "@/components/add-to-quote-button";
 import { MediaImage } from "@/components/media-image";
 import { StageTilt } from "@/components/stage-tilt";
 import { products } from "@/lib/data";
+import "swiper/css";
+
+const StageScene = dynamic(
+  () => import("@/components/stage-scene").then((mod) => mod.StageScene),
+  { ssr: false },
+);
+const StageParticles = dynamic(
+  () => import("@/components/stage-particles").then((mod) => mod.StageParticles),
+  { ssr: false },
+);
 
 export function Showroom() {
   const [index, setIndex] = useState(0);
+  const shelf = useRef<SwiperType | null>(null);
   const product = products[index];
   const total = products.length;
 
@@ -28,11 +43,17 @@ export function Showroom() {
     return () => window.removeEventListener("keydown", onKey);
   }, [total]);
 
+  useEffect(() => {
+    shelf.current?.slideTo(index);
+  }, [index]);
+
   return (
     <section className="bg-[#0c121c] text-white" aria-roledescription="băng chuyền">
       <div className="grid lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-2">
         <div className="stage relative min-h-[300px] overflow-hidden sm:min-h-[420px]">
-          <div className="stage-grid pointer-events-none absolute inset-x-[-10%] bottom-0 h-[55%]" />
+          <StageParticles />
+          <StageScene />
+          <div className="stage-grid pointer-events-none absolute inset-x-[-10%] bottom-0 z-[1] h-[55%]" />
           <StageTilt>
             <div key={product.slug} className="desk-swap absolute inset-0">
               <div className="float-y absolute inset-8 sm:inset-16">
@@ -101,33 +122,45 @@ export function Showroom() {
         </div>
       </div>
 
-      <div className="flex gap-2 overflow-x-auto bg-[#0c121c] px-3 py-3" aria-label="Dãy thiết bị">
+      <Swiper
+        modules={[FreeMode, Mousewheel]}
+        slidesPerView="auto"
+        spaceBetween={8}
+        freeMode
+        mousewheel={{ forceToAxis: true }}
+        onSwiper={(instance) => {
+          shelf.current = instance;
+        }}
+        aria-label="Dãy thiết bị"
+        className="bg-[#0c121c] px-3 py-3"
+      >
         {products.map((item, itemIndex) => {
           const active = itemIndex === index;
           return (
-            <button
-              key={item.slug}
-              type="button"
-              onClick={() => setIndex(itemIndex)}
-              aria-current={active ? "true" : undefined}
-              aria-label={item.shortName}
-              className={`btn flex w-28 shrink-0 flex-col border text-left transition-transform duration-200 sm:w-36 ${
-                active
-                  ? "scale-[1.04] border-sky bg-white"
-                  : "border-transparent bg-white/90 hover:bg-white"
-              }`}
-            >
-              <span className={`block h-1 ${active ? "bg-sky" : "bg-transparent"}`} />
-              <span className="relative block h-16">
-                <MediaImage src={item.image} alt="" sizes="144px" className="object-contain p-2" />
-              </span>
-              <span className="line-clamp-2 px-2 pb-2 text-[12px] leading-[1.3] font-medium text-navy">
-                {item.shortName}
-              </span>
-            </button>
+            <SwiperSlide key={item.slug} className="!w-28 sm:!w-36">
+              <button
+                type="button"
+                onClick={() => setIndex(itemIndex)}
+                aria-current={active ? "true" : undefined}
+                aria-label={item.shortName}
+                className={`flex w-full flex-col border text-left transition-transform duration-200 ${
+                  active
+                    ? "scale-[1.04] border-sky bg-white"
+                    : "border-transparent bg-white/90 hover:bg-white"
+                }`}
+              >
+                <span className={`block h-1 ${active ? "bg-sky" : "bg-transparent"}`} />
+                <span className="relative block h-16">
+                  <MediaImage src={item.image} alt="" sizes="144px" className="object-contain p-2" />
+                </span>
+                <span className="line-clamp-2 px-2 pb-2 text-[12px] leading-[1.3] font-medium text-navy">
+                  {item.shortName}
+                </span>
+              </button>
+            </SwiperSlide>
           );
         })}
-      </div>
+      </Swiper>
     </section>
   );
 }

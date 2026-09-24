@@ -2,7 +2,8 @@ import Link from "next/link";
 import { AddToQuoteButton } from "@/components/add-to-quote-button";
 import { MediaImage } from "@/components/media-image";
 import type { Product } from "@/lib/data";
-import { cn } from "@/lib/utils";
+import { Tag } from "antd";
+import { AntdLinkButton } from "@/components/antd-link-button";
 
 export function ProductCard({
   product,
@@ -40,18 +41,13 @@ export function ProductCard({
           </p>
         </div>
         <div className="mt-auto flex items-center justify-between">
-          <span className="text-[15px] font-bold text-sky-dark">Liên hệ báo giá</span>
-          <span className="bg-ice px-2 py-1 text-[12px] font-semibold text-sky">
-            Chính hãng
-          </span>
+          <span className="text-[15px] font-medium text-[#1677ff]">Liên hệ báo giá</span>
+          <Tag color="blue">Chính hãng</Tag>
         </div>
-        <div className={cn("flex items-stretch gap-2")}>
-          <Link
-            href={href}
-            className="btn flex min-h-11 flex-1 items-center justify-center bg-secondary py-2.5 text-[13px] font-semibold text-navy hover:bg-navy hover:text-white"
-          >
+        <div className="flex items-center gap-2">
+          <AntdLinkButton href={href} type="default" size="middle">
             Xem chi tiết
-          </Link>
+          </AntdLinkButton>
           <AddToQuoteButton product={product} />
         </div>
       </div>

@@ -28,7 +28,7 @@ export function StageTilt({
 
   return (
     <div
-      className="absolute inset-0 [perspective:1100px]"
+      className="absolute inset-0 z-10 [perspective:1100px]"
       onPointerMove={tilt}
       onPointerLeave={reset}
     >
