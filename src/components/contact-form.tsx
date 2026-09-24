@@ -1,50 +1,45 @@
 "use client";
 
+import { Alert, Button, Form, Input } from "antd";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useQuote } from "@/components/quote-provider";
 import { MediaImage } from "@/components/media-image";
+import { useQuote } from "@/components/quote-provider";
 import { company } from "@/lib/data";
 
 export function ContactForm() {
   const { items, count, remove, clear } = useQuote();
+  const [form] = Form.useForm();
   const [sent, setSent] = useState("");
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
   return (
-    <form
-      className="flex flex-col gap-4"
-      onSubmit={async (event) => {
-        event.preventDefault();
+    <Form
+      form={form}
+      layout="vertical"
+      requiredMark
+      onFinish={async (values) => {
         setError("");
         setPending(true);
-        const form = event.currentTarget;
-        const data = new FormData(form);
-        const payload = {
-          name: String(data.get("name") ?? ""),
-          phone: String(data.get("phone") ?? ""),
-          email: String(data.get("email") ?? ""),
-          message: String(data.get("message") ?? ""),
-          items: items.map((item) => ({
-            slug: item.slug,
-            name: item.name,
-            sku: item.sku,
-            qty: item.qty,
-          })),
-        };
         try {
           const res = await fetch("/api/bao-gia", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
+            body: JSON.stringify({
+              ...values,
+              items: items.map((item) => ({
+                slug: item.slug,
+                name: item.name,
+                sku: item.sku,
+                qty: item.qty,
+              })),
+            }),
           });
           const json = (await res.json()) as { ok?: boolean; code?: string };
           if (!res.ok || !json.code) throw new Error("fail");
           setSent(json.code);
           clear();
-          form.reset();
+          form.resetFields();
         } catch {
           setError("Không ghi được yêu cầu. Thử lại hoặc gọi hotline.");
         } finally {
@@ -53,76 +48,63 @@ export function ContactForm() {
       }}
     >
       {items.length > 0 ? (
-        <div className="border border-border bg-white p-4">
-          <p className="text-[13px] font-bold text-navy">
-            Sản phẩm trong yêu cầu báo giá ({count})
-          </p>
+        <div className="mb-4 border border-[#f0f0f0] bg-white p-4">
+          <p className="text-sm font-semibold">Sản phẩm trong yêu cầu báo giá ({count})</p>
           <ul className="mt-3 flex flex-col gap-3">
             {items.map((item) => (
               <li key={item.slug} className="flex items-center gap-3">
-                <span className="relative size-12 shrink-0 overflow-hidden bg-ice">
+                <span className="relative size-12 shrink-0 overflow-hidden bg-[#f5f5f5]">
                   <MediaImage src={item.image} alt={item.name} sizes="48px" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[13px] font-semibold text-navy">
-                    {item.name}
-                  </span>
-                  <span className="text-[12px] text-muted-foreground">
+                  <span className="block truncate text-sm font-medium">{item.name}</span>
+                  <span className="text-xs text-[#8c8c8c]">
                     {item.sku} · SL {item.qty}
                   </span>
                 </span>
-                <button
-                  type="button"
-                  onClick={() => remove(item.slug)}
-                  className="text-[12px] font-semibold text-muted-foreground hover:text-navy"
-                >
+                <Button type="link" size="small" onClick={() => remove(item.slug)}>
                   Xóa
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
         </div>
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="flex flex-col gap-1.5 text-sm font-medium text-navy">
-          Họ và tên
-          <Input required name="name" placeholder="Nguyễn Văn A" className="h-11" />
-        </label>
-        <label className="flex flex-col gap-1.5 text-sm font-medium text-navy">
-          Số điện thoại
-          <Input required name="phone" placeholder="0909 115 115" className="h-11" />
-        </label>
+      <div className="grid gap-x-4 sm:grid-cols-2">
+        <Form.Item name="name" label="Họ và tên" rules={[{ required: true, message: "Nhập họ tên" }]}>
+          <Input size="large" placeholder="Nguyễn Văn A" />
+        </Form.Item>
+        <Form.Item
+          name="phone"
+          label="Số điện thoại"
+          rules={[{ required: true, message: "Nhập số điện thoại" }]}
+        >
+          <Input size="large" placeholder="0909 115 115" />
+        </Form.Item>
       </div>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-navy">
-        Email
-        <Input required type="email" name="email" placeholder="email@congty.vn" className="h-11" />
-      </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-navy">
-        Nội dung
-        <textarea
-          required
-          name="message"
-          rows={5}
-          placeholder="Nhu cầu sản phẩm, số lượng, thời gian..."
-          className="w-full rounded-lg border border-input px-3 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-        />
-      </label>
-      <Button
-        type="submit"
-        disabled={pending}
-        aria-busy={pending}
-        className="h-11 rounded-md bg-sky font-medium text-white hover:bg-sky-dark"
+      <Form.Item
+        name="email"
+        label="Email"
+        rules={[{ required: true, type: "email", message: "Email chưa đúng" }]}
       >
-        {pending ? <span className="spinner" /> : null}
-        {pending ? "Đang gửi" : "Gửi yêu cầu tư vấn"}
+        <Input size="large" placeholder="email@congty.vn" />
+      </Form.Item>
+      <Form.Item name="message" label="Nội dung" rules={[{ required: true, message: "Nhập nội dung" }]}>
+        <Input.TextArea rows={5} placeholder="Nhu cầu sản phẩm, số lượng, thời gian..." />
+      </Form.Item>
+      <Button type="primary" htmlType="submit" size="large" loading={pending} block>
+        Gửi yêu cầu tư vấn
       </Button>
       {sent ? (
-        <p className="text-sm text-sky-dark">
-          Đã nhận yêu cầu <b>{sent}</b>. Kim Hưng sẽ liên hệ qua {company.hotline}.
-        </p>
+        <Alert
+          className="mt-4"
+          type="success"
+          showIcon
+          message={`Đã nhận yêu cầu ${sent}. Kim Hưng sẽ liên hệ qua ${company.hotline}.`}
+        />
       ) : null}
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
-    </form>
+      {error ? <Alert className="mt-4" type="error" showIcon message={error} /> : null}
+    </Form>
   );
 }

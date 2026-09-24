@@ -1,16 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { CheckIcon } from "lucide-react";
-import { FigmaIcon } from "@/components/figma-icon";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import { useQuote } from "@/components/quote-provider";
 import type { Product } from "@/lib/data";
-import { cn } from "@/lib/utils";
 
 export function AddToQuoteButton({
   product,
   qty = 1,
-  className,
 }: {
   product: Product;
   qty?: number;
@@ -20,9 +18,10 @@ export function AddToQuoteButton({
   const [done, setDone] = useState(false);
 
   return (
-    <button
-      type="button"
+    <Button
+      type="primary"
       aria-label={done ? "Đã thêm vào báo giá" : "Thêm vào yêu cầu báo giá"}
+      icon={done ? undefined : <ShoppingCartOutlined />}
       onClick={() => {
         add({
           slug: product.slug,
@@ -34,17 +33,8 @@ export function AddToQuoteButton({
         setDone(true);
         window.setTimeout(() => setDone(false), 1800);
       }}
-      className={cn(
-        "btn flex size-11 shrink-0 items-center justify-center rounded-lg bg-sky text-white hover:bg-sky-dark",
-        done && "bg-navy",
-        className,
-      )}
     >
-      {done ? (
-        <CheckIcon className="size-4" />
-      ) : (
-        <FigmaIcon name="shopping-cart" size={16} className="invert" />
-      )}
-    </button>
+      {done ? "Đã thêm" : null}
+    </Button>
   );
 }
