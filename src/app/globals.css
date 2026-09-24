@@ -144,6 +144,21 @@
   animation: desk-swap 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.kit-line {
+  animation: kit-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes kit-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes desk-swap {
   from {
     opacity: 0;
@@ -247,7 +262,8 @@
   .marquee-track,
   .spinner,
   .route-bar,
-  .desk-swap {
+  .desk-swap,
+  .kit-line {
     animation: none;
   }
   .desk-mark {
