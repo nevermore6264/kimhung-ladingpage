@@ -1,18 +1,23 @@
 import Link from "next/link";
-import { CountUp } from "@/components/count-up";
+import { AnimatedStat } from "@/components/animated-stat";
+import { DepthCard } from "@/components/depth-card";
+import { Drift } from "@/components/drift";
+import { HdButton } from "@/components/hd-button";
+import { InkMark } from "@/components/ink-mark";
+import { ScrambleText } from "@/components/scramble-text";
+import { SpringLift } from "@/components/spring-lift";
+import { HeroMotion, ScrollStagger } from "@/components/gsap-blocks";
+import { HeroOrbit, StepCluster, BandOrb, CategoryShelf } from "@/components/field-models";
 import { JsonLd } from "@/components/json-ld";
-import { FigmaIcon } from "@/components/figma-icon";
 import { MediaImage } from "@/components/media-image";
-import { ProductCard } from "@/components/product-card";
-import { Reveal } from "@/components/reveal";
-import { SectionEyebrow, SectionTitle } from "@/components/section-heading";
+import { PartnerMarquee } from "@/components/partner-marquee";
+import { QuoteMarquee } from "@/components/quote-marquee";
+import { RotateWords } from "@/components/rotate-words";
+import { TiltCard } from "@/components/tilt-card";
 import {
-  cases,
   categories,
-  certifications,
   company,
   faqs,
-  partners,
   posts,
   processSteps,
   products,
@@ -21,14 +26,28 @@ import {
   stats,
   testimonials,
 } from "@/lib/data";
-import { cn } from "@/lib/utils";
+
+const pains = [
+  {
+    title: "Giấy tờ không đủ để đưa vào hồ sơ thầu",
+    text: "Thiếu CO, CQ hoặc số lưu hành thì đơn vị không chốt được hợp đồng.",
+  },
+  {
+    title: "Máy đo cồn trễ hạn hiệu chuẩn",
+    text: "Kết quả ngoài hiện trường mất giá trị khi cảm biến không được kiểm định đúng kỳ.",
+  },
+  {
+    title: "Một báo giá cho quá nhiều chủng loại",
+    text: "Que thử, máy đo và cổng dò cần người nắm đúng mã, không phải catalog chung.",
+  },
+  {
+    title: "Vật tư không khớp máy đang dùng",
+    text: "Ống thổi và giấy in sai quy cách làm hỏng cả ca làm việc.",
+  },
+];
 
 export function HomePage() {
-  const featured = products.filter((p) => p.featured);
-  const [lead, ...restFeatured] = featured;
-  const [featuredPost, ...otherPosts] = posts;
-  const [featuredQuote, ...otherQuotes] = testimonials;
-  const partnerLoop = [...partners, ...partners];
+  const lead = products.find((product) => product.featured) ?? products[0];
 
   return (
     <>
@@ -43,363 +62,233 @@ export function HomePage() {
           })),
         }}
       />
-      <section className="bg-navy text-white">
-        <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[1.05fr_0.95fr]">
-          <Reveal>
-            <div className="flex flex-col justify-center px-5 py-16 sm:px-8 lg:px-20 lg:py-24">
-              <p className="text-[13px] font-semibold tracking-[0.16em] text-white/60 uppercase">
-                Kim Hưng · Technology & Diagnostics
-              </p>
-              <h1 className="font-heading mt-6 max-w-[12ch] text-[42px] leading-[1.02] font-semibold tracking-tight md:text-[68px]">
-                Thiết bị xét nghiệm và an ninh chính ngạch
-              </h1>
-              <p className="mt-6 max-w-[460px] text-[17px] leading-[1.7] text-white/75">
-                Que thử ma túy, máy đo nồng độ cồn và cổng dò kim loại nhập khẩu
-                trực tiếp — hồ sơ Bộ Y Tế, CO/CQ và bảo hành tại Việt Nam.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="/san-pham"
-                  className="btn inline-flex min-h-11 items-center bg-white px-6 py-3 text-[15px] font-medium text-navy hover:bg-ice"
-                >
-                  Xem danh mục
-                </Link>
-                <Link
-                  href="/lien-he"
-                  className="btn inline-flex min-h-11 items-center border border-white/40 px-6 py-3 text-[15px] font-medium text-white hover:bg-white/10"
-                >
-                  Nhận báo giá sỉ
-                </Link>
-              </div>
-              <p className="mt-10 text-[13px] tracking-[0.08em] text-white/55 uppercase">
-                {certifications.join("  ·  ")}
-              </p>
+
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute -top-10 -left-10 size-80 bg-[radial-gradient(rgba(0,58,185,0.28)_1px,transparent_1.6px)] bg-[length:14px_14px] [mask-image:radial-gradient(ellipse_at_top_left,black_28%,transparent_72%)]" />
+        <div className="pointer-events-none absolute -top-8 -right-8 size-96 bg-[radial-gradient(rgba(0,58,185,0.22)_1px,transparent_1.6px)] bg-[length:14px_14px] [mask-image:radial-gradient(ellipse_at_top_right,black_28%,transparent_72%)]" />
+        <HeroOrbit />
+        <HeroMotion>
+        <div className="relative mx-auto grid max-w-[1120px] items-center gap-10 px-5 py-14 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:py-20">
+          <div data-hero>
+            <h1 className="text-[34px] leading-none font-bold tracking-tight text-navy sm:text-5xl">
+              Kho thiết bị <InkMark>hiện trường</InkMark>
+            </h1>
+            <p className="mt-4 text-[14px] font-semibold text-slate-500">
+              Dòng đang phục vụ: <RotateWords />
+            </p>
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+              {company.description} Hồ sơ Bộ Y tế, CO/CQ và giao từ kho TP. Hồ Chí Minh.
+            </p>
+            <div className="mt-6">
+              <HdButton href="/san-pham">Xem danh mục</HdButton>
             </div>
-          </Reveal>
-          <div className="relative min-h-[340px] sm:min-h-[460px] lg:min-h-[640px]">
-            <MediaImage
-              src="/images/hero.png"
-              alt="Kho thiết bị và giải pháp chẩn đoán Kim Hưng"
-              priority
-              sizes="(max-width: 1024px) 100vw, 48vw"
-            />
+            <div className="mt-8 grid max-w-lg grid-cols-3 divide-x divide-slate-100 overflow-hidden rounded-xl border border-slate-200 bg-white">
+              {stats.slice(0, 3).map((item) => (
+                <div key={item.label} className="px-2 py-3 text-center sm:px-4">
+                  <p className="text-sm font-bold text-[#003ab9]">
+                    <AnimatedStat value={item.value} suffix={item.suffix} />
+                  </p>
+                  <p className="mt-1 text-[11px] leading-snug text-slate-500">{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div data-hero>
+          <DepthCard>
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_20px_50px_-28px_rgba(15,23,42,0.45)] sm:p-6">
+            <div className="relative h-52 overflow-hidden rounded-xl bg-slate-50">
+              <div data-atropos-offset="8" className="float-y absolute inset-6">
+                <MediaImage src={lead.image} alt={lead.name} priority sizes="480px" className="object-contain" />
+              </div>
+            </div>
+            <div className="mt-4 flex items-start justify-between gap-3">
+              <div>
+                <ScrambleText text="Sẵn kho" className="text-[12px] font-semibold text-[#003ab9]" />
+                <h2 className="mt-1 text-[18px] font-bold text-navy">{lead.shortName}</h2>
+              </div>
+              <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[12px] font-semibold text-emerald-700">
+                Chính hãng
+              </span>
+            </div>
+            <ul className="mt-4 divide-y divide-slate-100 text-[13px]">
+              {lead.specs.slice(0, 3).map((spec) => (
+                <li key={spec.label} className="flex justify-between gap-4 py-2.5">
+                  <span className="text-slate-500">{spec.label}</span>
+                  <span className="text-right font-medium text-navy">{spec.value}</span>
+                </li>
+              ))}
+            </ul>
+            <Link href={`/san-pham/${lead.slug}`} className="mt-4 inline-flex text-[14px] font-semibold text-[#003ab9]">
+              Mở hồ sơ kỹ thuật →
+            </Link>
+          </div>
+          </DepthCard>
           </div>
         </div>
-        <div className="border-t border-white/15">
-          <div className="mx-auto grid max-w-[1440px] grid-cols-2 lg:grid-cols-4">
-            {stats.map((item, index) => (
-              <div
-                key={item.label}
-                className={cn(
-                  "px-5 py-7 sm:px-8 lg:px-10",
-                  index > 0 && "lg:border-l lg:border-white/15",
-                )}
-              >
-                <p className="font-heading text-[32px] font-semibold tracking-tight md:text-[40px]">
-                  <CountUp value={item.value} suffix={item.suffix} />
-                  {item.unit ? (
-                    <span className="ml-2 text-[16px] font-medium text-white/70">
-                      {item.unit}
-                    </span>
-                  ) : null}
-                </p>
-                <p className="mt-1 text-[13px] text-white/65">{item.label}</p>
-              </div>
-            ))}
-          </div>
+        </HeroMotion>
+      </section>
+
+      <PartnerMarquee />
+
+      <section className="mx-auto max-w-[1120px] px-5 py-16 sm:px-8">
+        <h2 className="max-w-xl text-[32px] leading-[1.15] font-bold tracking-tight text-navy sm:text-4xl">
+          Việc khó là chọn <InkMark>đúng mã</InkMark>, không phải xem thêm catalog.
+        </h2>
+        <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground">
+          Kim Hưng gom que thử, máy đo nồng độ cồn và thiết bị an ninh vào một đầu mối có giấy tờ.
+        </p>
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <SpringLift className="rounded-2xl border border-slate-200 bg-white p-6">
+            <p className="text-[13px] font-semibold text-slate-500">Trước khi có một đầu mối</p>
+            <h3 className="mt-2 text-[22px] font-bold text-navy">Chậm vì thiếu đúng giấy và đúng máy</h3>
+            <ul className="mt-5 space-y-4">
+              {pains.map((item) => (
+                <li key={item.title}>
+                  <p className="font-semibold text-navy">{item.title}</p>
+                  <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">{item.text}</p>
+                </li>
+              ))}
+            </ul>
+          </SpringLift>
+          <SpringLift className="rounded-2xl border border-[#003ab9]/20 bg-[#f4f7ff] p-6">
+            <p className="text-[13px] font-semibold text-[#003ab9]">Cùng Kim Hưng</p>
+            <h3 className="mt-2 text-[22px] font-bold text-navy">Một phiếu, đủ hồ sơ để trình</h3>
+            <ul className="mt-5 space-y-4">
+              {reasons.map((item) => (
+                <li key={item.title}>
+                  <p className="font-semibold text-navy">{item.title}</p>
+                  <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">{item.description}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6">
+              <HdButton href="/lien-he">Gửi phiếu báo giá</HdButton>
+            </div>
+          </SpringLift>
         </div>
       </section>
 
-      <section className="overflow-hidden border-b border-border bg-white py-6">
-        <p className="sr-only">Đơn vị đã hợp tác</p>
-        <div className="marquee-track flex gap-14 px-8">
-          {partnerLoop.map((name, index) => (
-            <span
-              key={`${name}-${index}`}
-              className="shrink-0 text-[13px] font-medium tracking-[0.12em] whitespace-nowrap text-navy/45 uppercase"
-            >
-              {name}
-            </span>
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-[1120px] px-5 sm:px-8">
+          <h2 className="text-[32px] font-bold tracking-tight text-navy">Làm việc theo ba bước</h2>
+          <StepCluster />
+          <ScrollStagger className="mt-8 grid gap-6 md:grid-cols-3">
+            {processSteps.slice(0, 3).map((step, index) => (
+              <article key={step.step} data-stagger className="rounded-2xl border border-slate-200 p-6">
+                <p className="text-[13px] font-bold text-[#003ab9]">{String(index + 1).padStart(2, "0")}</p>
+                <h3 className="mt-3 text-[20px] font-bold text-navy">{step.title}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">{step.description}</p>
+              </article>
+            ))}
+          </ScrollStagger>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1120px] px-5 py-16 sm:px-8">
+        <h2 className="max-w-lg text-[32px] font-bold tracking-tight text-navy">Sau khi bàn giao vẫn còn việc</h2>
+        <ScrollStagger className="mt-8 grid gap-4 md:grid-cols-3">
+          {services.map((service) => (
+            <article key={service.title} data-stagger className="rounded-2xl border border-slate-200 bg-white p-5">
+              <h3 className="text-[18px] font-bold text-navy">{service.title}</h3>
+              <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">{service.description}</p>
+            </article>
+          ))}
+        </ScrollStagger>
+      </section>
+
+      <section className="bg-[#f8fafc] py-16">
+        <div className="mx-auto max-w-[1120px] px-5 sm:px-8">
+          <h2 className="text-[32px] font-bold tracking-tight text-navy">Đơn vị đã dùng</h2>
+          <p className="mt-3 max-w-xl text-[15px] text-muted-foreground">
+            Lời từ bệnh viện, lực lượng và nhà máy.
+          </p>
+          <QuoteMarquee items={testimonials} />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1120px] px-5 py-16 sm:px-8">
+        <div className="flex items-end justify-between gap-4">
+          <h2 className="text-[32px] font-bold tracking-tight text-navy">Câu hỏi thường gặp</h2>
+          <Link href="/lien-he" className="text-[14px] font-semibold text-[#003ab9]">
+            Nhắn với Kim Hưng
+          </Link>
+        </div>
+        <div className="mt-6 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+          {faqs.map((item) => (
+            <details key={item.q} className="group px-5 py-4">
+              <summary className="cursor-pointer list-none text-[16px] font-semibold text-navy">{item.q}</summary>
+              <p className="mt-2 max-w-3xl text-[14px] leading-relaxed text-muted-foreground">{item.a}</p>
+            </details>
           ))}
         </div>
       </section>
 
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="px-5 py-16 sm:px-8 lg:px-20 lg:py-24">
-            <SectionEyebrow>Danh mục</SectionEyebrow>
-            <SectionTitle className="mt-3">Bốn nhóm thiết bị</SectionTitle>
-            <ol className="mt-10 border-t border-border">
-              {categories.map((cat, index) => (
-                <li key={cat.id} className="border-b border-border">
-                  <Link
-                    href={cat.href}
-                    className="group flex items-baseline gap-5 py-5"
-                  >
-                    <span className="w-8 shrink-0 font-heading text-[13px] text-sky">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block font-heading text-[22px] font-semibold text-navy group-hover:text-sky">
-                        {cat.name}
-                      </span>
-                      <span className="mt-1 block text-[14px] text-muted-foreground">
-                        {cat.description}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
+      <section className="bg-[#003ab9] text-white">
+        <div className="mx-auto flex max-w-[1120px] flex-col gap-6 px-5 py-14 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="max-w-xl text-[30px] leading-tight font-bold tracking-tight sm:text-4xl">
+              Gửi danh mục hôm nay, nhận báo giá sỉ.
+            </h2>
+            <p className="mt-3 text-white/80">Hotline {company.hotline} · {company.email}</p>
           </div>
-          <Link
-            href={categories[0].href}
-            className="group relative min-h-[420px] lg:min-h-full"
-          >
-            <MediaImage
-              src={categories[0].image}
-              alt={categories[0].name}
-              sizes="(max-width: 1024px) 100vw, 55vw"
-              className="transition-transform duration-700 group-hover:scale-[1.03]"
-            />
-            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 to-transparent p-8 text-white">
-              <span className="text-[13px] text-white/75">Danh mục nổi bật</span>
-              <span className="mt-1 block font-heading text-[28px] font-semibold">
-                {categories[0].name}
-              </span>
-            </span>
+          <BandOrb />
+          <div className="flex flex-wrap gap-3">
+            <a href={company.hotlineHref} className="inline-flex rounded-lg bg-white px-4 py-2.5 text-[15px] font-semibold text-[#003ab9]">
+              Gọi {company.hotline}
+            </a>
+            <Link href="/lien-he" className="inline-flex rounded-lg border border-white/40 px-4 py-2.5 text-[15px] font-semibold">
+              Viết phiếu
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1120px] px-5 py-16 sm:px-8">
+        <div className="flex items-end justify-between gap-4">
+          <h2 className="text-[32px] font-bold tracking-tight text-navy">Chọn nhóm thiết bị</h2>
+          <Link href="/san-pham" className="text-[14px] font-semibold text-[#003ab9]">
+            Xem tất cả
           </Link>
         </div>
-      </section>
-
-      <section className="bg-ice py-16 lg:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-20">
-          <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <SectionEyebrow>Sản phẩm</SectionEyebrow>
-              <SectionTitle className="mt-3">Đang được đặt nhiều</SectionTitle>
-            </div>
-            <Link href="/san-pham" className="text-[14px] font-semibold text-sky hover:underline">
-              Toàn bộ danh mục
-            </Link>
-          </div>
-          {lead ? (
-            <Link
-              href={`/san-pham/${lead.slug}`}
-              className="group mb-6 grid overflow-hidden bg-white lg:grid-cols-[1.1fr_0.9fr]"
-            >
-              <span className="studio-surface relative min-h-[280px]">
-                <MediaImage
-                  src={lead.image}
-                  alt={lead.name}
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-contain p-12 transition-transform duration-500 group-hover:scale-105"
-                />
-              </span>
-              <span className="flex flex-col justify-center p-8 lg:p-12">
-                <span className="text-[13px] font-semibold text-sky">Bán chạy</span>
-                <h3 className="font-heading mt-3 text-[28px] font-semibold text-navy md:text-[36px]">
-                  {lead.name}
-                </h3>
-                <p className="mt-4 max-w-md text-[16px] leading-[1.7] text-muted-foreground">
-                  {lead.excerpt}
-                </p>
-                <span className="mt-8 text-[14px] font-semibold text-navy">
-                  Xem thông số →
+        <CategoryShelf />
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((category) => (
+            <TiltCard key={category.id}>
+            <Link href={category.href} className="block overflow-hidden rounded-2xl border border-slate-200 bg-white">
+              <span className="relative block h-36 overflow-hidden bg-slate-50">
+                <span className="absolute inset-4">
+                  <Drift speed={-10} className="relative h-full w-full">
+                    <MediaImage src={category.image} alt={category.name} sizes="280px" className="object-contain" />
+                  </Drift>
                 </span>
               </span>
+              <span className="block p-4">
+                <span className="block font-bold text-navy">{category.shortName}</span>
+                <span className="mt-1 block text-[13px] text-muted-foreground">{category.description}</span>
+              </span>
             </Link>
-          ) : null}
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {restFeatured.map((product) => (
-              <ProductCard key={product.slug} product={product} />
-            ))}
-          </div>
+            </TiltCard>
+          ))}
         </div>
       </section>
 
-      <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-20">
-          <SectionEyebrow>Hợp tác</SectionEyebrow>
-          <SectionTitle className="mt-3 max-w-xl">Từ khảo sát đến hiệu chuẩn</SectionTitle>
-          <ol className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-            {processSteps.map((step) => (
-              <li key={step.step} className="border-t border-navy pt-5">
-                <p className="font-heading text-[13px] font-semibold text-sky">{step.step}</p>
-                <h3 className="font-heading mt-3 text-[20px] font-semibold text-navy">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-[14px] leading-[1.65] text-muted-foreground">
-                  {step.description}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section id="dich-vu" className="border-y border-border bg-ice py-16 lg:py-24">
-        <div className="mx-auto grid max-w-[1440px] gap-12 px-5 sm:px-8 lg:grid-cols-[0.7fr_1.3fr] lg:px-20">
-          <div>
-            <SectionEyebrow>Kỹ thuật</SectionEyebrow>
-            <SectionTitle className="mt-3">Sau khi bàn giao</SectionTitle>
-            <p className="mt-4 max-w-sm text-[15px] leading-[1.7] text-muted-foreground">
-              Hiệu chuẩn, sửa chữa và vật tư tiêu hao đi cùng thiết bị, không chỉ giao hàng một lần.
-            </p>
-            <Link
-              href="/dich-vu"
-              className="btn mt-8 inline-flex min-h-11 items-center bg-navy px-5 py-3 text-[14px] font-medium text-white hover:bg-navy-mid"
-            >
-              Xem dịch vụ
-            </Link>
-          </div>
-          <div className="grid gap-8">
-            {services.map((service, index) => (
-              <article key={service.title} className="grid gap-3 border-t border-border pt-6 sm:grid-cols-[4rem_1fr]">
-                <p className="font-heading text-[13px] font-semibold text-sky">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <div>
-                  <h3 className="font-heading text-[20px] font-semibold text-navy">{service.title}</h3>
-                  <p className="mt-2 text-[15px] leading-[1.65] text-muted-foreground">
-                    {service.description}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-[1440px] lg:grid-cols-2">
-          <div className="relative min-h-[360px]">
-            <MediaImage
-              src="/images/why-us.png"
-              alt="Cam kết chất lượng Kim Hưng"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          </div>
-          <div className="px-5 py-16 sm:px-8 lg:px-16 lg:py-24">
-            <SectionEyebrow>Cam kết</SectionEyebrow>
-            <SectionTitle className="mt-3">Vì sao đơn vị chọn Kim Hưng</SectionTitle>
-            <ol className="mt-10">
-              {reasons.map((reason, index) => (
-                <li key={reason.title} className="border-t border-border py-5">
-                  <p className="text-[13px] font-semibold text-sky">
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <p className="mt-1 font-heading text-[18px] font-semibold text-navy">
-                    {reason.title}
-                  </p>
-                  <p className="mt-1 text-[14px] leading-[1.6] text-muted-foreground">
-                    {reason.description}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-navy py-16 text-white lg:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-20">
-          <p className="text-[13px] font-semibold tracking-[0.14em] text-white/55 uppercase">
-            Hiện trường
-          </p>
-          <h2 className="font-heading mt-3 max-w-lg text-[32px] font-semibold tracking-tight md:text-[44px]">
-            Đã triển khai, không chỉ giới thiệu
-          </h2>
-          <div className="mt-12 grid gap-px bg-white/15 md:grid-cols-3">
-            {cases.map((item) => (
-              <article key={item.title} className="bg-navy p-6 lg:p-8">
-                <p className="font-heading text-[36px] font-semibold">{item.metric}</p>
-                <h3 className="mt-4 font-heading text-[18px] font-semibold">{item.title}</h3>
-                <p className="mt-1 text-[13px] text-white/60">{item.org}</p>
-                <p className="mt-3 text-[15px] leading-[1.65] text-white/80">{item.result}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-20">
-          <SectionEyebrow>Đối tác</SectionEyebrow>
-          <blockquote className="mt-8 max-w-[920px]">
-            <p className="font-heading text-[26px] leading-[1.35] font-semibold text-navy md:text-[36px]">
-              “{featuredQuote.quote}”
-            </p>
-            <footer className="mt-6 text-[15px]">
-              <span className="font-semibold text-navy">{featuredQuote.name}</span>
-              <span className="text-muted-foreground"> — {featuredQuote.org}</span>
-            </footer>
-          </blockquote>
-          <div className="mt-12 grid gap-8 border-t border-border pt-8 md:grid-cols-2">
-            {otherQuotes.map((item) => (
-              <blockquote key={item.name} className="border-l-2 border-sky pl-5">
-                <p className="text-[16px] leading-[1.7] text-navy">“{item.quote}”</p>
-                <footer className="mt-3 text-[13px] text-muted-foreground">
-                  {item.name} — {item.org}
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border bg-ice py-16 lg:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-20">
-          <div className="mb-10 flex items-end justify-between gap-4">
-            <div>
-              <SectionEyebrow>Tin tức</SectionEyebrow>
-              <SectionTitle className="mt-3">Ghi chép kỹ thuật</SectionTitle>
-            </div>
-            <Link href="/tin-tuc" className="text-[14px] font-semibold text-sky hover:underline">
-              Tất cả bài
-            </Link>
-          </div>
-          <div className="grid gap-8 lg:grid-cols-3">
-            {[featuredPost, ...otherPosts].map((post) => (
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-[1120px] px-5 sm:px-8">
+          <h2 className="text-[32px] font-bold tracking-tight text-navy">Ghi chép kỹ thuật</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {posts.map((post) => (
               <article key={post.slug}>
-                <Link href={`/tin-tuc/${post.slug}`} className="relative block h-52 overflow-hidden">
-                  <MediaImage src={post.image} alt={post.title} sizes="(max-width: 1024px) 100vw, 30vw" />
+                <Link href={`/tin-tuc/${post.slug}`} className="relative block h-44 overflow-hidden rounded-xl bg-slate-100">
+                  <MediaImage src={post.image} alt={post.title} sizes="360px" />
                 </Link>
-                <p className="mt-4 text-[13px] text-muted-foreground">{post.date}</p>
-                <h3 className="font-heading mt-1 text-[18px] font-semibold text-navy">
-                  <Link href={`/tin-tuc/${post.slug}`} className="hover:text-sky">
+                <h3 className="mt-3 text-[18px] font-bold text-navy">
+                  <Link href={`/tin-tuc/${post.slug}`} className="hover:text-[#003ab9]">
                     {post.title}
                   </Link>
                 </h3>
+                <p className="mt-2 text-[14px] text-muted-foreground">{post.excerpt}</p>
               </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto grid max-w-[1440px] gap-12 px-5 sm:px-8 lg:grid-cols-[0.7fr_1.3fr] lg:px-20">
-          <div>
-            <SectionEyebrow>Hỏi đáp</SectionEyebrow>
-            <SectionTitle className="mt-3">Trước khi chốt hồ sơ</SectionTitle>
-            <Link
-              href="/lien-he"
-              className="btn mt-8 inline-flex min-h-11 items-center bg-sky px-5 py-3 text-[14px] font-medium text-white hover:bg-sky-dark"
-            >
-              Hỏi chuyên viên
-            </Link>
-          </div>
-          <div className="border-t border-border">
-            {faqs.map((item) => (
-              <details key={item.q} className="group border-b border-border py-4">
-                <summary className="cursor-pointer list-none font-heading text-[17px] font-semibold text-navy">
-                  <span className="flex items-start justify-between gap-6">
-                    {item.q}
-                    <span className="text-sky group-open:rotate-45">+</span>
-                  </span>
-                </summary>
-                <p className="mt-3 max-w-2xl text-[15px] leading-[1.7] text-muted-foreground">{item.a}</p>
-              </details>
             ))}
           </div>
         </div>
@@ -412,32 +301,13 @@ export function HomePage() {
 
 export function CtaBanner() {
   return (
-    <section className="bg-navy text-white">
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-8 px-5 py-16 sm:px-8 lg:flex-row lg:items-end lg:justify-between lg:px-20 lg:py-20">
-        <div className="max-w-[640px]">
-          <p className="text-[13px] font-semibold tracking-[0.14em] text-white/55 uppercase">
-            Liên hệ
-          </p>
-          <h2 className="font-heading mt-3 text-[32px] font-semibold tracking-tight md:text-[44px]">
-            Gửi danh mục, nhận báo giá sỉ
-          </h2>
+    <section className="border-t border-slate-200 bg-white">
+      <div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-5 py-10 sm:px-8 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="text-[24px] font-bold text-navy">Cần báo giá cho đơn vị</h2>
+          <p className="mt-1 text-[14px] text-muted-foreground">{company.hotline} · {company.email}</p>
         </div>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href={company.hotlineHref}
-            className="btn inline-flex min-h-11 items-center gap-2 bg-white px-5 py-3 text-[15px] font-medium text-navy hover:bg-ice"
-          >
-            <FigmaIcon name="phone" size={16} />
-            {company.hotline}
-          </a>
-          <a
-            href={company.emailHref}
-            className="btn inline-flex min-h-11 items-center gap-2 border border-white/40 px-5 py-3 text-[15px] font-medium text-white hover:bg-white/10"
-          >
-            <FigmaIcon name="mail" size={16} className="brightness-0 invert" />
-            {company.email}
-          </a>
-        </div>
+        <HdButton href="/lien-he">Viết phiếu</HdButton>
       </div>
     </section>
   );

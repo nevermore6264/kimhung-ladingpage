@@ -5,15 +5,17 @@ import { motion, useReducedMotion } from "motion/react";
 export function Reveal({
   children,
   className,
+  ...rest
 }: {
   children: React.ReactNode;
   className?: string;
-}) {
+} & React.HTMLAttributes<HTMLDivElement>) {
   const reduce = useReducedMotion();
 
   return (
     <motion.div
       className={className}
+      {...rest}
       initial={reduce ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { SpecSpin } from "@/components/field-models";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FigmaIcon } from "@/components/figma-icon";
 import {
@@ -66,6 +67,12 @@ export default async function ProductDetailPage({
             name: product.specs.find((spec) => spec.label === "Hãng")?.value ?? "Kim Hưng",
           },
           url: absoluteUrl(`/san-pham/${product.slug}`),
+          offers: {
+            "@type": "Offer",
+            url: absoluteUrl(`/san-pham/${product.slug}`),
+            availability: "https://schema.org/InStock",
+            seller: { "@type": "Organization", name: "Kim Hưng" },
+          },
         }}
       />
       <Breadcrumbs
@@ -80,12 +87,18 @@ export default async function ProductDetailPage({
         ]}
       />
 
-      <div className="bg-white pb-20 lg:pb-0">
-        <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-6 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:px-20 lg:py-10">
-          <ProductGallery product={product} />
+      <div className="bg-[#f8fafc] pb-20 lg:pb-0">
+        <div className="mx-auto grid max-w-[1120px] gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+            <div className="border-b border-slate-100">
+              <SpecSpin />
+            </div>
+            <ProductGallery product={product} />
+          </div>
 
-          <div className="lg:sticky lg:top-32 lg:self-start">
-            <h1 className="font-heading text-[24px] font-extrabold tracking-tight text-navy sm:text-[26px] md:text-[32px]">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 lg:sticky lg:top-24 lg:self-start">
+            <p className="text-[13px] font-semibold text-[#003ab9]">{product.categoryLabel}</p>
+            <h1 className="mt-2 text-[28px] font-bold tracking-tight text-navy sm:text-[32px]">
               {product.name}
             </h1>
             <div className="mt-2 flex flex-wrap items-center gap-3 text-[13px] text-muted-foreground">
@@ -97,8 +110,8 @@ export default async function ProductDetailPage({
               <span>Mã sản phẩm: {product.sku}</span>
             </div>
 
-            <div className="mt-6 border-t border-border pt-6">
-              <p className="text-[22px] font-extrabold text-sky-dark">
+            <div className="mt-6 border-t border-slate-200 pt-6">
+              <p className="text-[22px] font-extrabold text-[#003ab9]">
                 Liên hệ báo giá sỉ
               </p>
               <p className="mt-1 text-[12px] text-muted-foreground">
@@ -123,7 +136,7 @@ export default async function ProductDetailPage({
           </div>
         </div>
 
-        <div className="mx-auto max-w-[1440px] px-5 py-8 sm:px-8 lg:px-20">
+        <div className="mx-auto max-w-[1120px] px-5 py-8 sm:px-8">
           <Tabs
             defaultActiveKey="mo-ta"
             items={[
@@ -143,7 +156,7 @@ export default async function ProductDetailPage({
                         Sản phẩm sử dụng công nghệ miễn dịch sắc ký dòng chảy bên để phát hiện định tính định mức giới hạn của các chất kích thích có trong mẫu sinh hóa. Có kết quả rõ ràng sắc nét thể hiện qua các vạch màu đỏ chuẩn (Vạch C và Vạch T) trên thân cốc kiểm.
                       </p>
                     ) : null}
-                    <div className="mt-6 border border-border bg-ice p-5">
+                    <div className="mt-6 rounded-2xl border border-slate-200 bg-[#f8fafc] p-5">
                       <p className="text-[15px] font-bold text-navy">Ưu Điểm Vượt Trội Của {product.name} Kim Hưng Phân Phối:</p>
                       <ul className="mt-3 flex flex-col gap-2 text-[14px] text-muted-foreground">
                         {product.benefits.map((item) => (
@@ -190,8 +203,8 @@ export default async function ProductDetailPage({
           />
         </div>
 
-        <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-20">
-          <h2 className="mb-8 text-[24px] font-extrabold text-navy">
+        <div className="mx-auto max-w-[1120px] px-5 py-16 sm:px-8">
+          <h2 className="mb-8 text-[28px] font-bold tracking-tight text-navy">
             Sản Phẩm Tương Tự & Liên Quan
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

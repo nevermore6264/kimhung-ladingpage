@@ -36,7 +36,7 @@ export const categories: {
     id: "que-thu-ma-tuy",
     name: "Que Thử Nhanh Ma Túy",
     shortName: "Que thử ma túy nhanh",
-    href: "/san-pham?danh-muc=que-thu-ma-tuy",
+    href: "/danh-muc/que-thu-ma-tuy",
     image: "/images/cat-drug.png",
     description: "Mẫu thử nước tiểu & nước bọt đạt chuẩn bộ y tế.",
     listingIntro:
@@ -46,7 +46,7 @@ export const categories: {
     id: "may-do-nong-do-con",
     name: "Máy Đo Nồng Độ Cồn",
     shortName: "Máy đo nồng độ cồn",
-    href: "/san-pham?danh-muc=may-do-nong-do-con",
+    href: "/danh-muc/may-do-nong-do-con",
     image: "/images/cat-alcohol.png",
     description: "Thiết bị cầm tay chuyên dụng có máy in mini.",
     listingIntro:
@@ -56,7 +56,7 @@ export const categories: {
     id: "thiet-bi-an-ninh",
     name: "Thiết Bị An Ninh",
     shortName: "Thiết bị an ninh chuyên dụng",
-    href: "/san-pham?danh-muc=thiet-bi-an-ninh",
+    href: "/danh-muc/thiet-bi-an-ninh",
     image: "/images/cat-security.png",
     description: "Cổng dò kim loại, máy dò cầm tay công nghiệp.",
     listingIntro:
@@ -66,7 +66,7 @@ export const categories: {
     id: "vat-tu-tieu-hao",
     name: "Vật Tư Tiêu Hao",
     shortName: "Vật tư tiêu hao đi kèm",
-    href: "/san-pham?danh-muc=vat-tu-tieu-hao",
+    href: "/danh-muc/vat-tu-tieu-hao",
     image: "/images/cat-consumable.png",
     description: "Ống thổi, phễu gom cồn, giấy in nhiệt chính hãng.",
     listingIntro:

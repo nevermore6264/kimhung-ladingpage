@@ -36,7 +36,7 @@ export function AddToQuoteButton({
             particleCount: 42,
             spread: 58,
             origin: { y: 0.72 },
-            colors: ["#1677ff", "#0958d9", "#ffffff", "#111111"],
+            colors: ["#d6ff4a", "#f4f5f7", "#07080b", "#b6e000"],
           });
         }
         setDone(true);

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { FigmaIcon } from "@/components/figma-icon";
 import { Logo } from "@/components/logo";
 import { categories, company, navItems } from "@/lib/data";
 
@@ -7,26 +6,32 @@ export function SiteFooter() {
   const mapsSrc = `https://maps.google.com/maps?q=${encodeURIComponent(company.mapsQuery)}&z=16&output=embed`;
 
   return (
-    <footer className="bg-navy text-white">
-      <div className="mx-auto max-w-[1440px] px-5 pt-16 pb-6 sm:px-8 lg:px-20">
-        <div className="grid gap-10 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="flex flex-col gap-6">
-            <Logo variant="footer" />
-            <div className="flex flex-col gap-3">
-              <p className="text-[15px] font-bold">{company.legalName}</p>
-              <p className="text-[13px] leading-[1.5] text-white/80">
-                {company.description}
-              </p>
-              <p className="text-[13px] text-white/80">MST: {company.taxId}</p>
-            </div>
+    <footer className="border-t border-border bg-background text-navy">
+      <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-16">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr_1fr]">
+          <div>
+            <Logo />
+            <p className="mt-6 max-w-sm text-[14px] leading-[1.7] text-muted-foreground">
+              {company.legalName}. MST {company.taxId}.
+            </p>
+            <p className="mt-3 max-w-sm text-[14px] leading-[1.7] text-muted-foreground">{company.address}</p>
+            <p className="mt-4 text-[14px]">
+              <a href={company.hotlineHref} className="border-b border-navy pb-0.5">
+                {company.hotline}
+              </a>
+              <span className="mx-3 text-border">/</span>
+              <a href={company.emailHref} className="border-b border-navy pb-0.5">
+                {company.email}
+              </a>
+            </p>
           </div>
 
           <div>
-            <h3 className="mb-5 text-[16px] font-bold">Danh mục</h3>
-            <ul className="flex flex-col gap-3 text-[14px] text-white/80">
+            <p className="text-[12px] tracking-[0.16em] text-muted-foreground uppercase">Mục</p>
+            <ul className="mt-4 flex flex-col gap-2 text-[15px]">
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="hover:text-white">
+                  <Link href={item.href} className="hover:underline">
                     {item.label}
                   </Link>
                 </li>
@@ -35,31 +40,17 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h3 className="mb-5 text-[16px] font-bold">Sản phẩm chính</h3>
-            <ul className="flex flex-col gap-3 text-[14px] text-white/80">
+            <p className="text-[12px] tracking-[0.16em] text-muted-foreground uppercase">Danh mục</p>
+            <ul className="mt-4 flex flex-col gap-2 text-[15px]">
               {categories.map((cat) => (
                 <li key={cat.id}>
-                  <Link href={cat.href} className="hover:text-white">
-                    {cat.id === "que-thu-ma-tuy"
-                      ? "Que thử nhanh ma túy"
-                      : cat.id === "may-do-nong-do-con"
-                        ? "Máy đo nồng độ cồn"
-                        : cat.id === "thiet-bi-an-ninh"
-                          ? "Thiết bị an ninh cổng từ"
-                          : "Vật tư y tế & tiêu hao"}
+                  <Link href={cat.href} className="hover:underline">
+                    {cat.shortName}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-5 text-[16px] font-bold">Văn phòng giao dịch</h3>
-            <div className="flex gap-2 text-[13px] leading-[1.4] text-white/80">
-              <FigmaIcon name="map-pin" size={16} className="mt-0.5 shrink-0 brightness-0 invert" />
-              <p>{company.address}</p>
-            </div>
-            <div className="relative mt-4 h-[140px] overflow-hidden bg-navy-mid ring-1 ring-white/10">
+            <div className="relative mt-6 h-[140px] overflow-hidden bg-ice">
               <iframe
                 title="Bản đồ văn phòng Kim Hưng"
                 src={mapsSrc}
@@ -71,21 +62,17 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-5">
-          <div className="flex flex-col gap-2 text-[13px] text-white/80 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 Công ty TNHH Đầu tư & Phát Triển Kim Hưng. All rights reserved.</p>
-            <p className="flex flex-wrap items-center gap-3">
-              <a href={company.facebook} aria-label="Facebook" target="_blank" rel="noreferrer" className="hover:text-white">
-                <FigmaIcon name="facebook" size={16} className="brightness-0 invert" />
-              </a>
-              <a href={company.youtube} aria-label="YouTube" target="_blank" rel="noreferrer" className="hover:text-white">
-                <FigmaIcon name="youtube" size={16} className="brightness-0 invert" />
-              </a>
-              <Link href="/dang-ky" className="hover:text-white">
-                Đăng ký tư vấn
-              </Link>
-            </p>
-          </div>
+        <div className="mt-14 flex flex-col gap-3 border-t border-border pt-5 text-[13px] text-muted-foreground sm:flex-row sm:justify-between">
+          <p>© 2026 Kim Hưng</p>
+          <p className="flex gap-4">
+            <a href={company.facebook} target="_blank" rel="noreferrer">
+              Facebook
+            </a>
+            <a href={company.youtube} target="_blank" rel="noreferrer">
+              YouTube
+            </a>
+            <Link href="/dang-ky">Đăng ký tư vấn</Link>
+          </p>
         </div>
       </div>
     </footer>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button, InputNumber } from "antd";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { TiltCard } from "@/components/tilt-card";
 import { useQuote } from "@/components/quote-provider";
 import type { Product } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -22,6 +23,7 @@ export function ProductGallery({ product }: { product: Product }) {
           onClick={() => setOpen(true)}
           className="stage relative flex h-[320px] w-full cursor-zoom-in items-center justify-center overflow-hidden sm:h-[420px]"
         >
+          <TiltCard>
           <span className="float-y relative block size-[240px] overflow-hidden sm:size-[320px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -32,6 +34,7 @@ export function ProductGallery({ product }: { product: Product }) {
               className="size-full object-cover"
             />
           </span>
+          </TiltCard>
         </button>
         <div className="mt-4 grid grid-cols-4 gap-3">
           {images.slice(0, 4).map((src, index) => (
@@ -50,7 +53,7 @@ export function ProductGallery({ product }: { product: Product }) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={src}
-                  alt=""
+                  alt={`${product.name}, ảnh ${index + 1}`}
                   width={60}
                   height={60}
                   className="size-full object-cover"
@@ -105,7 +108,7 @@ export function ProductBuyBox({ product }: { product: Product }) {
           Liên hệ tư vấn
         </Button>
       </div>
-      {message ? <p className="text-sm text-[#1677ff]">{message}</p> : null}
+      {message ? <p className="text-sm text-sky">{message}</p> : null}
     </div>
   );
 }
@@ -115,7 +118,7 @@ export function StickyQuoteBar({ product }: { product: Product }) {
   const { add } = useQuote();
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-ice/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden">
       <Button
         type="primary"
         size="large"

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { MediaImage } from "@/components/media-image";
+import { PageIntro } from "@/components/page-intro";
 import { posts } from "@/lib/data";
 import { pageMetadata } from "@/lib/site";
 
@@ -20,29 +21,28 @@ export default function TinTucPage() {
           { label: "Tin tức" },
         ]}
       />
-      <section className="bg-white py-12 lg:py-16">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-20">
-          <p className="text-[13px] font-semibold tracking-[0.14em] text-sky uppercase">Ghi chép kỹ thuật</p>
-          <h1 className="mt-3 font-heading text-[32px] leading-[1.05] font-semibold text-navy sm:text-[44px]">
-            Tin cho người đang dùng máy
-          </h1>
-          <ul className="mt-10 border-t border-border">
-            {posts.map((post) => (
-              <li key={post.slug} className="border-b border-border">
-                <Link href={`/tin-tuc/${post.slug}`} className="grid gap-4 py-5 sm:grid-cols-[8rem_11rem_1fr] sm:items-center">
-                  <span className="text-[13px] text-muted-foreground">{post.date}</span>
-                  <span className="relative block h-24 overflow-hidden bg-ice">
-                    <MediaImage src={post.image} alt="" sizes="180px" className="object-cover" />
-                  </span>
-                  <span>
-                    <span className="block font-heading text-[20px] font-semibold text-navy">{post.title}</span>
-                    <span className="mt-1 block text-[14px] leading-[1.5] text-muted-foreground">{post.excerpt}</span>
-                  </span>
+      <PageIntro
+        eyebrow="Ghi chép kỹ thuật"
+        title="Tin cho người đang dùng máy"
+        lede="Hướng dẫn que thử, hiệu chuẩn máy đo cồn và tiêu chuẩn cổng dò."
+      />
+      <section className="mx-auto grid max-w-[1120px] gap-6 px-5 py-10 sm:px-8 md:grid-cols-3">
+        {posts.map((post) => (
+          <article key={post.slug} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+            <Link href={`/tin-tuc/${post.slug}`} className="relative block h-44 bg-slate-100">
+              <MediaImage src={post.image} alt={post.title} sizes="360px" />
+            </Link>
+            <div className="p-5">
+              <p className="text-[12px] font-semibold text-[#003ab9]">{post.date}</p>
+              <h2 className="mt-2 text-[18px] font-bold text-navy">
+                <Link href={`/tin-tuc/${post.slug}`} className="hover:text-[#003ab9]">
+                  {post.title}
                 </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+              </h2>
+              <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">{post.excerpt}</p>
+            </div>
+          </article>
+        ))}
       </section>
     </>
   );

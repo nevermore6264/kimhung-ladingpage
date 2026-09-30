@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AddToQuoteButton } from "@/components/add-to-quote-button";
 import { MediaImage } from "@/components/media-image";
+import { TiltCard } from "@/components/tilt-card";
 import type { Product } from "@/lib/data";
 import { Tag } from "antd";
 import { AntdLinkButton } from "@/components/antd-link-button";
@@ -15,7 +16,8 @@ export function ProductCard({
   const href = `/san-pham/${product.slug}`;
 
   return (
-    <article className="card-3d group flex h-full flex-col overflow-hidden border border-border bg-white">
+    <TiltCard className="h-full">
+    <article className="card-3d group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">
       <Link
         href={href}
         className="studio-surface flex h-[220px] items-center justify-center overflow-hidden"
@@ -41,7 +43,7 @@ export function ProductCard({
           </p>
         </div>
         <div className="mt-auto flex items-center justify-between">
-          <span className="text-[15px] font-medium text-[#1677ff]">Liên hệ báo giá</span>
+          <span className="text-[15px] font-medium text-sky">Liên hệ báo giá</span>
           <Tag color="blue">Chính hãng</Tag>
         </div>
         <div className="flex items-center gap-2">
@@ -52,5 +54,6 @@ export function ProductCard({
         </div>
       </div>
     </article>
+    </TiltCard>
   );
 }

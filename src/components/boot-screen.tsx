@@ -14,20 +14,16 @@ export function BootScreen() {
     const timer = window.setTimeout(() => {
       sessionStorage.setItem(KEY, "1");
       setVisible(false);
-    }, 1100);
+    }, 700);
     return () => window.clearTimeout(timer);
   }, []);
 
   if (!visible) return null;
 
   return (
-    <div className="stage fixed inset-0 z-[90] flex flex-col items-center justify-center gap-5 text-white" role="status">
-      <span className="flex size-16 items-center justify-center bg-white text-[22px] font-black text-navy">KH</span>
-      <span className="boot-track" aria-hidden>
-        <span className="boot-fill" />
-      </span>
-      <p className="text-[14px] text-white/80">Đang mở sàn thiết bị</p>
-      <span className="sr-only">Đang tải</span>
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[90] h-1 bg-slate-200" role="status">
+      <span className="boot-fill block h-full" />
+      <span className="sr-only">Đang mở trang</span>
     </div>
   );
 }

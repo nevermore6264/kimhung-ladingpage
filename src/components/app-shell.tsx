@@ -11,7 +11,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <RouteProgress />
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-sky focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:rounded-lg focus:bg-sky focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white"
       >
         Bỏ qua đến nội dung chính
       </a>

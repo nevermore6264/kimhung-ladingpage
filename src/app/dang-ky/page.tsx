@@ -1,5 +1,6 @@
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { OptInForm } from "@/components/opt-in-form";
+import { PageIntro } from "@/components/page-intro";
 import { company } from "@/lib/data";
 import { pageMetadata } from "@/lib/site";
 
@@ -18,22 +19,15 @@ export default function DangKyPage() {
           { label: "Đăng ký tư vấn" },
         ]}
       />
-      <section className="bg-white py-16">
-        <div className="mx-auto grid max-w-[960px] gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:px-20">
-          <div>
-            <p className="text-[13px] font-semibold tracking-[0.14em] text-sky uppercase">Tư vấn</p>
-            <h1 className="mt-3 font-heading text-[32px] leading-[1.05] font-semibold text-navy sm:text-[40px]">
-              Để lại nhu cầu, Kim Hưng gọi lại
-            </h1>
-            <p className="mt-4 text-[16px] leading-[1.6] text-muted-foreground">
-              Để lại nhu cầu, Kim Hưng gọi lại trong giờ hành chính — hotline{" "}
-              {company.hotline}.
-            </p>
-          </div>
-          <div className="border border-border bg-ice p-6 sm:p-8">
-            <h2 className="mb-6 text-[20px] font-bold text-navy">Để lại thông tin</h2>
-            <OptInForm />
-          </div>
+      <PageIntro
+        eyebrow="Tư vấn"
+        title="Để lại nhu cầu, Kim Hưng gọi lại"
+        lede={`Kim Hưng gọi lại trong giờ hành chính — hotline ${company.hotline}.`}
+      />
+      <section className="mx-auto max-w-[640px] px-5 py-10 sm:px-8">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+          <h2 className="mb-6 text-[20px] font-bold text-navy">Để lại thông tin</h2>
+          <OptInForm />
         </div>
       </section>
     </>

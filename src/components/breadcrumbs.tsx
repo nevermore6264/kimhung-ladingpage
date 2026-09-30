@@ -22,9 +22,9 @@ export function Breadcrumbs({
   };
 
   return (
-    <nav aria-label="Breadcrumb" className="border-b border-[#f0f0f0] bg-white">
+    <nav aria-label="Breadcrumb" className="border-b border-slate-200 bg-white">
       <JsonLd data={schema} />
-      <div className="mx-auto flex min-h-12 max-w-[1440px] items-center px-5 sm:px-8 lg:px-20">
+      <div className="mx-auto flex min-h-12 max-w-[1120px] items-center px-5 sm:px-8">
         <Breadcrumb
           items={items.map((item, index) => {
             const last = index === items.length - 1;

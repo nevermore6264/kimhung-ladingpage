@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { FigmaIcon } from "@/components/figma-icon";
 import { ProductCard } from "@/components/product-card";
 import { Button, Checkbox, Pagination } from "antd";
@@ -22,6 +23,7 @@ export function ProductListing({
   categoryId?: CategoryId;
 }) {
   const category = getCategory(categoryId);
+  const [grid, enable] = useAutoAnimate({ duration: 280 });
   const [page, setPage] = useState(1);
   const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -49,14 +51,19 @@ export function ProductListing({
     setPage(1);
   }, [categoryId, selectedBrands, selectedPrices]);
 
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) enable(false);
+  }, [enable]);
+
   function toggle(list: string[], value: string, setter: (next: string[]) => void) {
     setter(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
   }
 
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-[1440px] px-5 py-6 sm:px-8 lg:px-20 lg:py-8">
-        <h1 className="font-heading text-[28px] font-extrabold tracking-tight text-navy sm:text-[32px] md:text-[40px]">
+    <div className="bg-[#f8fafc]">
+      <div className="mx-auto max-w-[1120px] px-5 py-12 sm:px-8">
+        <p className="text-[13px] font-semibold text-[#003ab9]">Danh mục</p>
+        <h1 className="mt-2 text-[32px] font-bold tracking-tight text-navy sm:text-5xl">
           {category?.name ?? "Tất cả sản phẩm"}
         </h1>
         <p className="mt-3 max-w-[800px] text-[15px] leading-[1.5] text-muted-foreground">
@@ -65,7 +72,7 @@ export function ProductListing({
         </p>
       </div>
 
-      <div className="mx-auto max-w-[1440px] px-5 pb-16 sm:px-8 lg:px-20">
+      <div className="mx-auto max-w-[1120px] px-5 pb-16 sm:px-8">
         <nav
           aria-label="Danh mục sản phẩm"
           className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-4 lg:hidden"
@@ -73,7 +80,7 @@ export function ProductListing({
           <Link
             href="/san-pham"
             className={cn(
-              "shrink-0 border px-4 py-2 text-[14px] font-medium",
+              "shrink-0 rounded-full border px-4 py-2 text-[14px] font-medium",
               !categoryId ? "border-sky bg-sky text-white" : "border-border bg-white text-navy",
             )}
           >
@@ -84,8 +91,8 @@ export function ProductListing({
               key={cat.id}
               href={cat.href}
               className={cn(
-                "shrink-0 border px-4 py-2 text-[14px] font-medium",
-                cat.id === categoryId ? "border-sky bg-sky text-white" : "border-border bg-white text-navy",
+                "shrink-0 rounded-full border px-4 py-2 text-[14px] font-medium",
+                cat.id === categoryId ? "border-sky bg-sky text-white" : "border-slate-200 bg-white text-navy",
               )}
             >
               {cat.shortName}
@@ -94,7 +101,7 @@ export function ProductListing({
         </nav>
         <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
         <aside className="flex flex-col gap-6">
-          <div className="hidden border border-border bg-white p-5 lg:block">
+          <div className="hidden rounded-2xl border border-slate-200 bg-white p-5 lg:block">
             <h2 className="mb-4 text-[16px] font-bold text-navy">Danh Mục Sản Phẩm</h2>
             <ul className="flex flex-col gap-1">
               <li>
@@ -129,12 +136,12 @@ export function ProductListing({
             </ul>
           </div>
 
-          <details className="border border-border bg-white lg:contents">
+          <details className="rounded-2xl border border-slate-200 bg-white lg:contents">
             <summary className="min-h-11 cursor-pointer list-none px-5 py-3 text-[16px] font-bold text-navy lg:hidden">
               Lọc giá và thương hiệu
             </summary>
             <div className="flex flex-col gap-6 border-t border-border p-5 lg:contents lg:border-0 lg:p-0">
-          <div className="border border-border bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
             <h2 className="mb-4 text-[16px] font-bold text-navy">Khoảng Giá</h2>
             <ul className="flex flex-col gap-3">
               {priceRanges.map((range) => (
@@ -150,7 +157,7 @@ export function ProductListing({
             </ul>
           </div>
 
-          <div className="border border-border bg-white p-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
             <h2 className="mb-4 text-[16px] font-bold text-navy">Thương Hiệu</h2>
             <ul className="flex flex-col gap-3">
               {brands.map((brand) => (
@@ -183,7 +190,7 @@ export function ProductListing({
           </div>
 
           {visible.length === 0 ? (
-            <div className="border border-dashed border-border bg-white px-6 py-16 text-center">
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
               <p className="font-heading text-[18px] font-bold text-navy">
                 Không tìm thấy sản phẩm phù hợp
               </p>
@@ -202,7 +209,7 @@ export function ProductListing({
               </Button>
             </div>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <div ref={grid} className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
               {visible.map((product) => (
                 <ProductCard key={product.slug} product={product} variant="listing" />
               ))}

@@ -48,7 +48,7 @@ export function ContactForm() {
       }}
     >
       {items.length > 0 ? (
-        <div className="mb-4 border border-[#f0f0f0] bg-white p-4">
+        <div className="mb-4 border border-border bg-ice p-4">
           <p className="text-sm font-semibold">Sản phẩm trong yêu cầu báo giá ({count})</p>
           <ul className="mt-3 flex flex-col gap-3">
             {items.map((item) => (

@@ -2,9 +2,17 @@
 
 import { ReactLenis, useLenis } from "lenis/react";
 import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function ReducedMotionGuard() {
   const lenis = useLenis();
+
+  useLenis(() => {
+    ScrollTrigger.update();
+  });
 
   useEffect(() => {
     if (!lenis) return;

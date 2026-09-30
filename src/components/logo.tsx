@@ -8,45 +8,14 @@ export function Logo({
   variant?: "default" | "footer" | "light";
   className?: string;
 }) {
-  const isFooter = variant === "footer";
-  const isLight = variant === "light";
+  const light = variant === "light";
 
   return (
-    <Link href="/" className={cn("flex items-center gap-3", className)}>
-      <span
-        className={cn(
-          "flex size-10 shrink-0 items-center justify-center font-black text-[20px] leading-none",
-          isFooter && "bg-white text-navy",
-          isLight && "bg-white text-navy",
-          !isFooter && !isLight && "bg-navy text-white",
-        )}
-      >
-        KH
+    <Link href="/" className={cn("flex items-center gap-2", className)}>
+      <span className="live-dot" aria-hidden />
+      <span className={cn("text-[18px] font-semibold tracking-[-0.04em]", light ? "text-white" : "text-navy")}>
+        Kim Hưng
       </span>
-      {isFooter ? (
-        <span className="font-heading text-[22px] font-extrabold leading-none text-white">
-          KIM HƯNG
-        </span>
-      ) : (
-        <span className="flex flex-col gap-0.5 leading-none">
-          <span
-            className={cn(
-              "font-heading text-[22px] font-extrabold",
-              isLight ? "text-white" : "text-navy",
-            )}
-          >
-            KIM HƯNG
-          </span>
-          <span
-            className={cn(
-              "hidden text-[9px] font-semibold tracking-[0.08em] sm:block",
-              isLight ? "text-white/75" : "text-sky",
-            )}
-          >
-            TECHNOLOGY & DIAGNOSTICS
-          </span>
-        </span>
-      )}
     </Link>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inclusive_Sans, Noto_Sans } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import { AppShell } from "@/components/app-shell";
 import { JsonLd } from "@/components/json-ld";
 import { Providers } from "@/components/providers";
@@ -7,14 +7,8 @@ import { company } from "@/lib/data";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const inclusive = Inclusive_Sans({
-  variable: "--font-inclusive",
-  subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const noto = Noto_Sans({
-  variable: "--font-noto",
+const beVietnam = Be_Vietnam_Pro({
+  variable: "--font-be-vietnam",
   subsets: ["latin", "vietnamese"],
   weight: ["400", "500", "600", "700"],
 });
@@ -22,7 +16,7 @@ const noto = Noto_Sans({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0c121c",
+  themeColor: "#f8fafc",
 };
 
 export const metadata: Metadata = {
@@ -47,7 +41,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="vi"
-      className={`${inclusive.variable} ${noto.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${beVietnam.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip bg-background font-sans text-foreground">
         <JsonLd
@@ -61,6 +56,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             telephone: "+84909115115",
             taxID: company.taxId,
             description: company.description,
+            logo: `${siteUrl}/icon`,
+            areaServed: "VN",
+            contactPoint: {
+              "@type": "ContactPoint",
+              telephone: "+84909115115",
+              email: company.email,
+              contactType: "sales",
+              areaServed: "VN",
+              availableLanguage: ["Vietnamese"],
+            },
             address: {
               "@type": "PostalAddress",
               streetAddress: "184/1A Lê Văn Sỹ, Phường 10",
@@ -68,6 +73,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               addressRegion: "TP. Hồ Chí Minh",
               addressCountry: "VN",
             },
+          }}
+        />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Kim Hưng",
+            url: siteUrl,
+            inLanguage: "vi",
+            description:
+              "Phân phối que thử ma túy, máy đo nồng độ cồn và thiết bị an ninh chính hãng.",
+            publisher: { "@type": "Organization", name: company.legalName, url: siteUrl },
           }}
         />
         <Providers>
